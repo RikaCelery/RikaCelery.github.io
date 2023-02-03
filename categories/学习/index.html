@@ -297,37 +297,6 @@
                 <hr />
                 <div class="kratos-post-content" itemprop="articleBody">
                     <h1 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h1><p>在计算机体系结构中，并行性的最早应用之一是使用流水线将一个复杂的操作分成一系列独立的段，如果不同的段使用不同的资源，且它的前一个操作完成了第一段，立即启动一个操作，这样就能重复执行其他的操作。</p>
-<p><img src="/2023/02/03/%E6%B5%81%E6%B0%B4%E7%BA%BF/v2-b49bfe699c10f9cac31b0083d83ac20a_720w.webp" alt="img"></p>
-<h2 id="流水包括下面的这些级："><a href="#流水包括下面的这些级：" class="headerlink" title="流水包括下面的这些级："></a>流水包括下面的这些级：</h2><ol>
-<li><p>取指令（IF）</p>
-</li>
-<li><p>指令译码（ID）</p>
-</li>
-<li><p>执行（EX）</p>
-</li>
-<li><p>存储访间（MEM）</p>
-</li>
-<li><p>回写（WB）</p>
-</li>
-</ol>
-<blockquote>
-<p>取指和译码是自明的。为执行的目的，将EX和MEM级组织在一起。</p>
-<p>如果指令是一条寄存器到寄存器操作，它能在算术逻辑部件(ALU)中实施，则这一条指令在EX级完成。</p>
-<p>如果它是一条存储访问指令，则地址计算在EX级实现，而存储访问实际上是在MEM级发生。</p>
-<p>注意，如果需要的存储单元不在高速缓存中，出现不命中，那么这条指令将停顿（stall）直到将需要的块(block)装人高速缓存中。如果指令是分支指令，那么在执行阶段用一个指定寄存器与0比较并在MEM级将PC置成正确的值。WB级用来将数据写回到寄存器中；在分支指令中不使用它。</p>
-</blockquote>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>ADD R1, R2, R3</p>
-<p>SUB R4, R1, R5</p>
-<p>这样的指令序列能没有延地被执行，因为加法指令的结果是直接被送到减法指令的执行级，而不用等待回写到寄存器中。然而，这在</p>
-<p>LW R1, 0(R2)</p>
-<p>ADD R3, R1, R4</p>
-<p>序列是不可能的，因为在存储周期结束前，取数指令的结果是不可能得到的。因此，我们看到如下图所描绘的一个周期的停顿。</p>
-<p><img src="/2023/02/03/%E6%B5%81%E6%B0%B4%E7%BA%BF/v2-d24138de86ae6a5454e183b5d0f53e3c_r.jpg" alt="img"></p>
-<p>在上面load和add指令之间插人一条这样的指令，它不使用那个正在取数的寄存器，编译器调度就能消除此问题。</p>
-<p>A+B+C</p>
-<p>其中浮点加的流水线需要两级。如果按从左到右的顺序对表达式求值，那么第二条加法指令在执行前将不得不等待一个周期，如下图所示。</p>
-<p><img src="/2023/02/03/%E6%B5%81%E6%B0%B4%E7%BA%BF/v2-747dfec2b755e95a7bbd7ed3102aeaf2_r.jpg" alt="img"></p>
-
                 </div>
                 <footer class="kratos-entry-footer clearfix">
                     <div class="post-like-donate text-center clearfix">
@@ -430,7 +399,7 @@
                 文章
             </span>
             <span class="count">
-                5
+                6
             </span>
         </a>
         <a class="meta-item" href="/categories/">
@@ -475,6 +444,9 @@
   <div class="tab-content">
       <ul class="list-group">
         
+        
+          
+          
         
           
           
