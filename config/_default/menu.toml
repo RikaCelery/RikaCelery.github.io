@@ -1,11 +1,16 @@
 # Configure main menu and social menu
-# [[main]]
-# identifier = "home"
-# name = "Home"
-# url = "/"
-# [main.params]
-# icon = "home"
-# newtab = true
+[[main]]
+identifier = "categories"
+name = "Categories"
+url = "/categories"
+[main.params]
+icon = "categories"
+[[main]]
+identifier = "tags"
+name = "Tags"
+url = "/tags"
+[main.params]
+icon = "tag"
 
 [[social]]
 identifier = "github"

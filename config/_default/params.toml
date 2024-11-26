@@ -14,7 +14,7 @@ lastUpdated = "Jan 02, 2006 15:04 MST"
 
 [sidebar]
 emoji = "🌶️"
-subtitle = "锄禾日当午，汗滴禾下土。"
+subtitle = "种赛博蔬菜，品百味报错"
 
 [sidebar.avatar]
 enabled = true
@@ -45,6 +45,7 @@ type = "categories"
 
 [widgets.homepage.params]
 limit = 100
+
 
 [[widgets.homepage]]
 type = "tag-cloud"
