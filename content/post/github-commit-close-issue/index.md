@@ -3,15 +3,11 @@ title: "GitHub用提交消息来关闭issue"
 description: "TL;DR: fix #1, fixed #2, resolve #3, close #4; YOUR COMMIT MESSAGE"
 date: 2024-11-27T11:39:04+08:00
 image: image-20241127113714800.png
-math: 
-license: 
-hidden: false
 categories: 
     - 那些坑儿
 tags:
     - github
     - useful
-draft: false
 ---
 
 一直很好奇这种在某个提交中关闭issue是怎么做到的

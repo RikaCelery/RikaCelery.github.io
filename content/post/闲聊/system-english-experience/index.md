@@ -3,11 +3,6 @@ title: "将系统语言切换至英文的感受"
 description: "用了好多年英文系统了，聊聊这些年下来的想法"
 date: 2024-11-28T09:12:00+08:00
 image:
-math:
-license:
-hidden: false
-comments:
-draft: true
 categories:
   - 闲聊
 tags:
