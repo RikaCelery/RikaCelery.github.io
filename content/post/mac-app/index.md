@@ -4,9 +4,9 @@ description: "一些MacOS Only的软件，非常实用"
 date: 2024-11-26T10:39:04+08:00
 image: cover.jpg
 categories: 
-    - 软件分享
-    - 折腾
+    - essay
 tags:
+    - 软件分享
     - MacOS
 ---
 无意间看到这位的[博客](https://blog.stapxs.cn/archives/mac-app)，里面的软件都非常有意思，作为补充，我在这里也分享一下我自己常用的软件

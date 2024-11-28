@@ -4,7 +4,7 @@ description: "TL;DR: fix #1, fixed #2, resolve #3, close #4; YOUR COMMIT MESSAGE
 date: 2024-11-27T11:39:04+08:00
 image: image-20241127113714800.png
 categories: 
-    - 那些坑儿
+    - tips
 tags:
     - github
     - useful

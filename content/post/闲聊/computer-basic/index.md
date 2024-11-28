@@ -6,7 +6,7 @@ image: cover.png
 math: 
 slug: computer-basics
 categories:
-  - 闲聊
+  - talk
 tags:
   - 计算机
 comments: 

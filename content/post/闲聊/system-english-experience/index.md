@@ -4,7 +4,7 @@ description: "用了好多年英文系统了，聊聊这些年下来的想法"
 date: 2024-11-28T09:12:00+08:00
 image:
 categories:
-  - 闲聊
+  - talk
 tags:
   - 英语
 ---
