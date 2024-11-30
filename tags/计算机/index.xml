@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>计算机 on Celery的菜园子</title><link>/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link><description>Recent content in 计算机 on Celery的菜园子</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 26 Nov 2024 12:02:17 +0800</lastBuildDate><atom:link href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>闲聊：一些跟如何使用计算机有关的基础知识</title><link>/p/computer-basics/</link><pubDate>Tue, 26 Nov 2024 12:02:17 +0800</pubDate><guid>/p/computer-basics/</guid><description>&lt;img src="/p/computer-basics/cover.png" alt="Featured image of post 闲聊：一些跟如何使用计算机有关的基础知识" />&lt;h2 id="10进制-2进制-16进制">&lt;a href="#10%e8%bf%9b%e5%88%b6-2%e8%bf%9b%e5%88%b6-16%e8%bf%9b%e5%88%b6" class="header-anchor">&lt;/a>10进制 2进制 16进制
+&lt;/h2>&lt;p>Q：为什么要这么做？
+A：因为一堆0和1太长了，使用更大的进制可以减少长度。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl"> 5 2 3 15 这是10进制
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0101 0010 0011 1111 这是二进制
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 5 2 3 (15) 这是16进制
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 5 2 3 F 这是16进制，但是我们仅使用一个字符来表示(10-15我们用abcdef来表示)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="你存到磁盘的东西到底长什么样子">&lt;a href="#%e4%bd%a0%e5%ad%98%e5%88%b0%e7%a3%81%e7%9b%98%e7%9a%84%e4%b8%9c%e8%a5%bf%e5%88%b0%e5%ba%95%e9%95%bf%e4%bb%80%e4%b9%88%e6%a0%b7%e5%ad%90" class="header-anchor">&lt;/a>你存到磁盘的东西到底长什么样子
+&lt;/h2>&lt;p>我们小学二年级就学过，计算机存储的都是0和1，那么0和1怎么能变成文字/图片/音频/视频？&lt;/p>
+&lt;h3 id="编码">&lt;a href="#%e7%bc%96%e7%a0%81" class="header-anchor">&lt;/a>编码
+&lt;/h3>&lt;p>我们需要给出一个规则让数字和实物对应起来，这个规则就是编码。
+比如在猪咪国，猪咪规定&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>数字&lt;/th>
+&lt;th>文字&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>0&lt;/td>
+&lt;td>0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3&lt;/td>
+&lt;td>3&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&amp;hellip;&lt;/td>
+&lt;td>&amp;hellip;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>9&lt;/td>
+&lt;td>只&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>10&lt;/td>
+&lt;td>猪&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>11&lt;/td>
+&lt;td>狗&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>12&lt;/td>
+&lt;td>猫&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>13&lt;/td>
+&lt;td>🐷&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>14&lt;/td>
+&lt;td>🐶&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>15&lt;/td>
+&lt;td>🐱&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>16&lt;/td>
+&lt;td>今&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>17&lt;/td>
+&lt;td>天&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>18&lt;/td>
+&lt;td>看到了&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>那么&lt;code>今 天 🐷 看到了 8 只 🐶&lt;/code>就可以表示为&lt;code>16 17 18 8 9 14&lt;/code>&lt;/p>
+&lt;p>但是我们发现编码表太长了，一个16进制无法表示18个值，我们只能通过增加长度来解决这个问题，比如两个十六进制。&lt;/p>
+&lt;p>于是乎，&lt;code>16 17 18 8 9 14&lt;/code> =&amp;gt; &lt;code>10 11 12 08 09 0E&lt;/code>这就是编码后的结果。&lt;/p>
+&lt;blockquote>
+&lt;p>10怎么来的： 一个F是15 我们给他加1，向前进位，本位归零 =&amp;gt; 10&lt;/p>
+&lt;/blockquote>
+&lt;p>我们在解码的时候只需要反向查找编码表即可&lt;/p>
+&lt;h3 id="文件路径">&lt;a href="#%e6%96%87%e4%bb%b6%e8%b7%af%e5%be%84" class="header-anchor">&lt;/a>文件路径
+&lt;/h3>&lt;p>Q：文件存好了，那么怎么找到这个文件？&lt;br>
+A：路径！&lt;/p>
+&lt;p>我们用路径来定位一个文件(夹)，路径的最后有可能是文件夹，也有可能是文件。&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>根目录（linux:&lt;code>/&lt;/code>）：最外层的文件夹，在Windows上我们称之为盘符（&lt;code>C:\&lt;/code>,&lt;code>D:\&lt;/code>&amp;hellip;）&lt;/li>
+&lt;li>绝对路径：以盘符开头的路径，比如&lt;code>C:\Users\Administrator\Desktop\test.txt&lt;/code>&lt;/li>
+&lt;li>相对路径：相对于某个文件的路径，比如&lt;code>test.txt&lt;/code>&lt;/li>
+&lt;li>外层文件夹：&lt;code>..&lt;/code>&lt;/li>
+&lt;li>外2层文件夹：&lt;code>..\..\&lt;/code>&lt;/li>
+&lt;li>&lt;code>\&lt;/code>: 路径分隔符，在linux和macos上是&lt;code>/&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>他们看起来是这样的&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image.png"
+width="1758"
+height="628"
+srcset="/p/computer-basics/image_hu6601774711333604742.png 480w, /p/computer-basics/image_hu1056798713862248506.png 1024w"
+loading="lazy"
+alt="Windows"
+class="gallery-image"
+data-flex-grow="279"
+data-flex-basis="671px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image-2.png"
+width="700"
+height="516"
+srcset="/p/computer-basics/image-2_hu17737284618667878060.png 480w, /p/computer-basics/image-2_hu17907960192591064599.png 1024w"
+loading="lazy"
+alt="Windows 文件属性"
+class="gallery-image"
+data-flex-grow="135"
+data-flex-basis="325px"
+> &lt;img src="/p/computer-basics/image-3.png"
+width="1946"
+height="704"
+srcset="/p/computer-basics/image-3_hu2541648499203276917.png 480w, /p/computer-basics/image-3_hu633802836165606054.png 1024w"
+loading="lazy"
+alt="MacOS"
+class="gallery-image"
+data-flex-grow="276"
+data-flex-basis="663px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image-4.png"
+width="674"
+height="536"
+srcset="/p/computer-basics/image-4_hu15559249092531615315.png 480w, /p/computer-basics/image-4_hu16550851836691045884.png 1024w"
+loading="lazy"
+alt="小米相册详情"
+class="gallery-image"
+data-flex-grow="125"
+data-flex-basis="301px"
+> &lt;img src="/p/computer-basics/image-5.png"
+width="696"
+height="414"
+srcset="/p/computer-basics/image-5_hu3726695924473981047.png 480w, /p/computer-basics/image-5_hu8594072790051243946.png 1024w"
+loading="lazy"
+alt="小米文件管理"
+class="gallery-image"
+data-flex-grow="168"
+data-flex-basis="403px"
+>&lt;/p>
+&lt;h2 id="文件类型--后缀">&lt;a href="#%e6%96%87%e4%bb%b6%e7%b1%bb%e5%9e%8b--%e5%90%8e%e7%bc%80" class="header-anchor">&lt;/a>文件类型 &amp;amp; 后缀
+&lt;/h2>&lt;blockquote>
+&lt;p>众所周知，&lt;code>.exe&lt;/code>/&lt;code>.msi&lt;/code> 文件是 Windows 系统下的可执行文件 &lt;code>.app&lt;/code> 文件是 macOS 系统下的可执行文件，&lt;code>.apk&lt;/code> 文件则是 Android 系统下的的安装包。&lt;/p>
+&lt;p>但是如果你把&lt;code>.ppt&lt;/code>改成&lt;code>.exe&lt;/code>它依然不能运行&lt;/p>
+&lt;p>显然文件后缀并不是确定文件类型的标准&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="mime-类型">&lt;a href="#mime-%e7%b1%bb%e5%9e%8b" class="header-anchor">&lt;/a>MIME 类型
+&lt;/h3>&lt;p>MIME 是一个文件类型的合集，每个MIME类型由两部分组成，前面是数据的大类别，例如声音audio、图象image等，后面定义具体的种类。
+七种大类别：&lt;/p>
+&lt;ul>
+&lt;li>video
+&lt;ul>
+&lt;li>mp4 =&amp;gt; .mp4&lt;/li>
+&lt;li>webm =&amp;gt; .webm&lt;/li>
+&lt;li>x-msvideo =&amp;gt; .avi&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>image
+&lt;ul>
+&lt;li>jpeg =&amp;gt; .jpg / .jpeg&lt;/li>
+&lt;li>png =&amp;gt; .png&lt;/li>
+&lt;li>gif =&amp;gt; .gif&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>application
+&lt;ul>
+&lt;li>x-gzip =&amp;gt; .gz&lt;/li>
+&lt;li>json =&amp;gt; .json&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>text
+&lt;ul>
+&lt;li>html =&amp;gt; .html&lt;/li>
+&lt;li>css =&amp;gt; .css&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>audio
+&lt;ul>
+&lt;li>mp3 =&amp;gt; .mp3&lt;/li>
+&lt;li>ogg =&amp;gt; .ogg&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>multipart&lt;/li>
+&lt;li>message&lt;/li>
+&lt;/ul>
+&lt;p>不写了，剩下的还有好多。。。&lt;/p>
+&lt;h3 id="魔数">&lt;a href="#%e9%ad%94%e6%95%b0" class="header-anchor">&lt;/a>魔数
+&lt;/h3>&lt;p>说了这么多，到底怎么判断一个文件的类型？我们需要&lt;code>魔数&lt;/code>(&lt;code>Magic Number&lt;/code>)。&lt;/p>
+&lt;p>&lt;strong>魔数&lt;/strong>：是一种用于识别文件类型和格式的短序列字节。它们通常位于文件的开头。&lt;/p>
+&lt;p>还记得我们刚刚编码后的文件吗？&lt;code>10 11 12 08 09 0E&lt;/code>，文件的开头并不是固定的，而是根据文件格式而变化的。
+而对于图片（jpg）来说，文件开头是确定的&lt;code>FF D8&lt;/code>。&lt;/p>
+&lt;p>你可以参考这个Gist来查看更多魔数
+&lt;a class="link" href="https://gist.github.com/leommoore/f9e57ba2aa4bf197ebc5?permalink_comment_id=3860213" target="_blank" rel="noopener"
+>File Magic Numbers&lt;/a>&lt;/p>
+&lt;h3 id="后缀">&lt;a href="#%e5%90%8e%e7%bc%80" class="header-anchor">&lt;/a>后缀
+&lt;/h3>&lt;p>那我们为什么还需要后缀？&lt;br>
+答：后缀可以在不读文件的情况下就确定文件类型，更快。&lt;/p>
+&lt;blockquote>
+&lt;p>那么现在你应该明白了，改后缀并不能防止百度/QQ审查你发送的文件。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="编程相关">&lt;a href="#%e7%bc%96%e7%a8%8b%e7%9b%b8%e5%85%b3" class="header-anchor">&lt;/a>编程相关
+&lt;/h2>&lt;h3 id="环境变量">&lt;a href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f" class="header-anchor">&lt;/a>环境变量
+&lt;/h3>&lt;p>环境变量用来保存一些东西，在每个程序运行的时候都可获取到环境变量里面的值&lt;/p>
+&lt;p>比如，在Windows下，&lt;code>%USERPROFILE%&lt;/code>就是你的用户目录，&lt;code>%APPDATA%&lt;/code> 是你用户数据的目录，你可以在文件管理器中的路径栏输入上述变量后回车，你应该会跳转到指定位置&lt;/p>
+&lt;p>在windows下你可以通过&lt;code>右键开始菜单-&amp;gt;系统-&amp;gt;高级系统设置-&amp;gt;环境变量&lt;/code>来修改环境变量&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image-6.png"
+width="452"
+height="1262"
+srcset="/p/computer-basics/image-6_hu12177519645115064940.png 480w, /p/computer-basics/image-6_hu7005970248996993862.png 1024w"
+loading="lazy"
+alt="打开系统信息"
+class="gallery-image"
+data-flex-grow="35"
+data-flex-basis="85px"
+> &lt;img src="/p/computer-basics/image-7.png"
+width="2940"
+height="1478"
+srcset="/p/computer-basics/image-7_hu218511652181049526.png 480w, /p/computer-basics/image-7_hu9076339453529047823.png 1024w"
+loading="lazy"
+alt="修改环境变量"
+class="gallery-image"
+data-flex-grow="198"
+data-flex-basis="477px"
+>&lt;/p>
+&lt;h3 id="命令行那个黑框框">&lt;a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e9%82%a3%e4%b8%aa%e9%bb%91%e6%a1%86%e6%a1%86" class="header-anchor">&lt;/a>命令行（那个黑框框）
+&lt;/h3>&lt;p>&lt;del>我相信你没有使用过命令行，并且以后也不会使用命令行，除非你是写代码的&lt;/del>&lt;/p>
+&lt;p>命令行（黑框）是操作系统提供的一个用于执行命令的东西。通过输入不同的命令来控制操作系统和使用软件。&lt;/p>
+&lt;p>举个例子，在Windows下，我们可以通过&lt;kbd>Win&lt;/kbd>+&lt;kbd>R&lt;/kbd>输入&lt;code>cmd&lt;/code>进入命令行，然后输入&lt;code>dir&lt;/code>查看当前目录的文件。如果你输入&lt;code>notepad.exe&lt;/code>还会打开记事本&lt;/p>
+&lt;p>命令的一般格式是&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">命令名字 -选项1 -选项2 --参数3 参数3的输入 --参数4 参数4的输入 参数1 参数2 ....
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>拿移动文件举例子，将文件从&lt;code>C:\Users\Administrator\Desktop\test.txt&lt;/code>移动到文件夹&lt;code>C:\Users\Administrator\Desktop\test2&lt;/code> &lt;em>注意这里我们使用了绝对路径&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">move&lt;/span> 文件路径 目标路径
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">move&lt;/span> C:\Users\Administrator\Desktop\test.txt C:\Users\Administrator\Desktop\test2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="工作目录">&lt;a href="#%e5%b7%a5%e4%bd%9c%e7%9b%ae%e5%bd%95" class="header-anchor">&lt;/a>工作目录
+&lt;/h4>&lt;p>你在哪里打开了cmd，它的工作目录就在哪里。&lt;/p>
+&lt;p>工作目录影响相对路径查找文件，他是从自己的工作目录为基准查找文件路径的。&lt;/p>
+&lt;p>cmd使用&lt;code>cd /d d:\xxx\xxx&lt;/code>来改变工作目录
+linux/mac使用&lt;code>cd 路径&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>所以使用黑框框其实很简单，就是需要记住命令的名字&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="path">&lt;a href="#path" class="header-anchor">&lt;/a>PATH
+&lt;/h3>&lt;p>这个东西常见于黑框框，但是其实用的地方非常多&lt;/p>
+&lt;p>还记得你刚刚输入的&lt;code>notepad.exe&lt;/code>吗？为什么cmd可以帮你打开它，但随便输入一个名字告诉你找不到？&lt;br>
+答：PATH&lt;/p>
+&lt;p>PATH 告诉黑框框在什么路径下可以找到软件。&lt;code>notepad.exe&lt;/code>在&lt;code>C:\Windows\System32&lt;/code>下，而PATH正好有这个路径，于是黑框框便可以找到它。&lt;/p>
+&lt;p>PATH 通常包含多个路径，用&lt;code>:&lt;/code>分割&lt;/p></description></item></channel></rss>
