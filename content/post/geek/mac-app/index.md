@@ -4,7 +4,7 @@ description: "一些MacOS Only的软件，非常实用"
 date: 2024-11-26T10:39:04+08:00
 image: cover.jpg
 categories: 
-    - essay
+    - geek
 tags:
     - 软件分享
     - MacOS
