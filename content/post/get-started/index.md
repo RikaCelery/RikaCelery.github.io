@@ -34,7 +34,7 @@ go 1.17
 
 require github.com/CaiJimmy/hugo-theme-stack/v3 v3.29.0 // indirect
 
-+ replace github.com/CaiJimmy/hugo-theme-stack/v3 => ./stack
++ replace github.com/RikaCelery/hugo-theme-stack/v3 => ./stack
 ```
 
 然后运行一下
