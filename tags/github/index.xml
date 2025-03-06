@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Github on Celery的菜园子</title><link>/tags/github/</link><description>Recent content in Github on Celery的菜园子</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 27 Nov 2024 11:39:04 +0800</lastBuildDate><atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml"/><item><title>GitHub用提交消息来关闭issue</title><link>/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/</link><pubDate>Wed, 27 Nov 2024 11:39:04 +0800</pubDate><guid>/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/</guid><description>&lt;img src="/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113714800.png" alt="Featured image of post GitHub用提交消息来关闭issue" />&lt;p>一直很好奇这种在某个提交中关闭issue是怎么做到的&lt;/p>
+&lt;p>点进去仔细看发现&lt;img src="/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113340708.png"
+width="388"
+height="116"
+srcset="/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113340708_hu_bedc22a68fa4d70b.png 480w, /p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113340708_hu_521e436a1eaefcb5.png 1024w"
+loading="lazy"
+alt="image-20241127113340708"
+class="gallery-image"
+data-flex-grow="334"
+data-flex-basis="802px"
+>&lt;/p>
+&lt;p>看来只要符合某种格式即可&lt;/p>
+&lt;p>根据GitHub&lt;a class="link" href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue" target="_blank" rel="noopener"
+>官方文档&lt;/a>，我们可以使用这些关键词：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>close&lt;/code>&lt;/li>
+&lt;li>&lt;code>closes&lt;/code>&lt;/li>
+&lt;li>&lt;code>closed&lt;/code>&lt;/li>
+&lt;li>&lt;code>fix&lt;/code>&lt;/li>
+&lt;li>&lt;code>fixes&lt;/code>&lt;/li>
+&lt;li>&lt;code>fixed&lt;/code>&lt;/li>
+&lt;li>&lt;code>resolve&lt;/code>&lt;/li>
+&lt;li>&lt;code>resolves&lt;/code>&lt;/li>
+&lt;li>&lt;code>resolved&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>使用如下格式：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Linked issue&lt;/th>
+&lt;th>Syntax&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Issue in the same repository&lt;/td>
+&lt;td>KEYWORD #ISSUE-NUMBER&lt;/td>
+&lt;td>&lt;code>Closes #10&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Issue in a different repository&lt;/td>
+&lt;td>KEYWORD OWNER/REPOSITORY#ISSUE-NUMBER&lt;/td>
+&lt;td>&lt;code>Fixes octo-org/octo-repo#100&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Multiple issues&lt;/td>
+&lt;td>Use full syntax for each issue&lt;/td>
+&lt;td>&lt;code>Resolves #10, resolves #123, resolves octo-org/octo-repo#100&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

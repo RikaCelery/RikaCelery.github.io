@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Celery的菜园子</title><link>/</link><description>Recent content on Celery的菜园子</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 06 Mar 2025 21:12:09 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>CORS踩坑记录</title><link>/p/cors%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</link><pubDate>Thu, 06 Mar 2025 21:12:09 +0800</pubDate><guid>/p/cors%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</guid><description>&lt;blockquote>
+&lt;p>Cross-origin resource sharing（CORS，或通俗地译为跨域资源共享）是一种基于HTTP 头的机制，该机制通过允许服务器标示除了它自己以外的其他源（域、协议或端口），使得浏览器允许这些源访问加载自己的资源&lt;/p>&lt;/blockquote>
+&lt;h2 id="同源策略">&lt;a href="#%e5%90%8c%e6%ba%90%e7%ad%96%e7%95%a5" class="header-anchor">&lt;/a>同源策略
+&lt;/h2>&lt;p>用于限制一个源的文档或者它加载的脚本如何能与另一个源的资源进行交互。&lt;/p>
+&lt;p>只有满足以下条件的请求才是同源的：&lt;/p>
+&lt;ol>
+&lt;li>协议相同（file://被视作非同源，无论路径是否一致，但某些浏览器处理方式可能不同）&lt;/li>
+&lt;li>域名相同&lt;/li>
+&lt;li>端口相同&lt;/li>
+&lt;/ol>
+&lt;p>出于安全性，浏览器限制脚本内发起的跨源 HTTP 请求。例如，XMLHttpRequest 和 Fetch API 遵循同源策略。这意味着使用这些 API 的 Web 应用程序只能从加载应用程序的同一个域请求 HTTP 资源，除非响应报文包含了正确 CORS 响应头。&lt;/p>
+&lt;h2 id="cors-响应头">&lt;a href="#cors-%e5%93%8d%e5%ba%94%e5%a4%b4" class="header-anchor">&lt;/a>CORS 响应头
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Allow-Origin: &amp;lt;origin&amp;gt; | *
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>告诉浏览器允许那些源访问资源，*表示允许所有源访问&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Expose-Headers: &amp;lt;header-name&amp;gt;[, &amp;lt;header-name&amp;gt;]*
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>告诉浏览器哪些响应头可以暴露给外部脚本，默认情况下，浏览器不允许外部脚本访问响应头，除非响应头中包含 &lt;code>Access-Control-Expose-Headers&lt;/code> 头，并且该头中包含要暴露的响应头名称。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Allow-Methods: &amp;lt;method&amp;gt;[, &amp;lt;method&amp;gt;]*
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>允许的请求方法，默认情况下，浏览器不允许外部脚本发起除 GET、HEAD、POST &lt;em>(简单请求)&lt;/em> 外的请求，除非响应头中包含 &lt;code>Access-Control-Allow-Methods&lt;/code> 头，并且该头中包含要允许的请求方法名称。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Allow-Headers: &amp;lt;header-name&amp;gt;[, &amp;lt;header-name&amp;gt;]*
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>用于预检请求的响应。其指明了实际请求中允许携带的标头字段。
+这个标头是服务器端对浏览器端 Access-Control-Request-Headers 标头的响应。&lt;/p>
+&lt;h2 id="踩坑">&lt;a href="#%e8%b8%a9%e5%9d%91" class="header-anchor">&lt;/a>踩坑
+&lt;/h2>&lt;p>在执行跨域请求的时候，其实并不是只需要设置预检请求的响应头，还需要设置实际的请求的响应头。
+拿保安和办公室举个例子：当你进别的公司办事时需要问保安，还需要里面的人同意&lt;/p>
+&lt;p>本来如果要用插件的话应该会帮你处理好这些，但是我在用goproxy做一些mitm妙妙操作，所有请求都需要自己处理
+折腾了半天才发现是只对OPTIONS做了添加请求头处理😭&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">p&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">proxyContext&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">makeProxyServer&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProxyHttpServer&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProxyHttpServer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Verbose&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">filter&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ReqHostMatches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">MustCompile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">`xxx`&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">OnRequest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nf">HandleConnect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AlwaysMitm&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">OnRequest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nf">DoFunc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ctx&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProxyCtx&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Response&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Method&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;OPTIONS&amp;#34;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">LogLevelInfo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;OPTIONS (已忽略)&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 使用 204 No Content 作为标准响应状态码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewResponse&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ContentTypeText&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 自动设置为 &amp;#34;text/plain&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusNoContent&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 204&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Origin&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Methods&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;POST, GET, OPTIONS&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Headers&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Content-Type, Authorization&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Vary&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Origin, Access-Control-Request-Headers&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">path&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">URL&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">switch&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="nx">strings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">HasPrefix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;activate&amp;#34;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">io&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ReadAll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">g&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">gjson&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ParseBytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewResponse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;application/json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusOK&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">makeFakeBody&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">g&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;license_key&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nf">String&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="s">&amp;#34;?&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Origin&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Methods&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;POST, GET, OPTIONS&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Headers&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Content-Type, Authorization&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Vary&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Origin, Access-Control-Request-Headers&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>写的略丑，能跑就行（&lt;/p></description></item><item><title>Rsync / 结尾斜杠</title><link>/p/rsync-/-%E7%BB%93%E5%B0%BE%E6%96%9C%E6%9D%A0/</link><pubDate>Sun, 08 Dec 2024 15:20:48 +0800</pubDate><guid>/p/rsync-/-%E7%BB%93%E5%B0%BE%E6%96%9C%E6%9D%A0/</guid><description>&lt;p>带/表示里面的内容
+不带/表示一个文件/文件夹&lt;/p></description></item><item><title>Ida9 崩溃解决</title><link>/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/</link><pubDate>Sat, 30 Nov 2024 14:10:29 +0800</pubDate><guid>/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/</guid><description>&lt;img src="/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image.png" alt="Featured image of post Ida9 崩溃解决" />&lt;p>&lt;img src="/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image.png"
+width="510"
+height="412"
+srcset="/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image_hu_702500d774b5e080.png 480w, /p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image_hu_c1b90f5c73173458.png 1024w"
+loading="lazy"
+alt="crash"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="297px"
+>&lt;/p>
+&lt;p>好不容易下到一个ida，结果打开显示&lt;code>ida has almost crashed!&lt;/code>&lt;/p>
+&lt;h2 id="解决">&lt;a href="#%e8%a7%a3%e5%86%b3" class="header-anchor">&lt;/a>解决
+&lt;/h2>&lt;p>python的问题，进入到&lt;code>IDA Professional 9.0.app/Contents/MacOS&lt;/code>后运行 &lt;code>./idapyswitch&lt;/code>&lt;/p>
+&lt;p>任选一个python即可&lt;/p>
+&lt;p>from&lt;a class="link" href="https://bbs.kanxue.com/thread-282872.htm#:~:text=%E5%90%AF%E5%8A%A8%E5%B4%A9%E6%BA%83%E4%BD%BF%E7%94%A8%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E5%88%87%E6%8D%A2python%E7%89%88%E6%9C%AC%0A/Applications/IDA%5C%C2%A0Professional%5C%C2%A09.0.app/Contents/MacOS/idapyswitch%0A%0A%0Ahttps%3A//macked.app/ida%2Dprofessional%2D9%2Dfor%2Dmac%2Dcrack.html" target="_blank" rel="noopener"
+>看雪论坛&lt;/a>&lt;/p></description></item><item><title>将系统语言切换至英文的感受</title><link>/p/%E5%B0%86%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80%E5%88%87%E6%8D%A2%E8%87%B3%E8%8B%B1%E6%96%87%E7%9A%84%E6%84%9F%E5%8F%97/</link><pubDate>Thu, 28 Nov 2024 09:12:00 +0800</pubDate><guid>/p/%E5%B0%86%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80%E5%88%87%E6%8D%A2%E8%87%B3%E8%8B%B1%E6%96%87%E7%9A%84%E6%84%9F%E5%8F%97/</guid><description>&lt;p>我用英文系统也有快4年了，来说说我的感受吧。&lt;/p>
+&lt;h2 id="起因">&lt;a href="#%e8%b5%b7%e5%9b%a0" class="header-anchor">&lt;/a>起因
+&lt;/h2>&lt;p>我在上小学初中的时候也曾经尝试过将手机的语言设置为英语，不过均以找不到如何调整回来而告终😭。&lt;/p>
+&lt;p>我最早使用的英文软件其实是fl studio&lt;img src="/p/%E5%B0%86%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80%E5%88%87%E6%8D%A2%E8%87%B3%E8%8B%B1%E6%96%87%E7%9A%84%E6%84%9F%E5%8F%97/image.png"
+width="1478"
+height="454"
+srcset="/p/%E5%B0%86%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80%E5%88%87%E6%8D%A2%E8%87%B3%E8%8B%B1%E6%96%87%E7%9A%84%E6%84%9F%E5%8F%97/image_hu_a404a23963007283.png 480w, /p/%E5%B0%86%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80%E5%88%87%E6%8D%A2%E8%87%B3%E8%8B%B1%E6%96%87%E7%9A%84%E6%84%9F%E5%8F%97/image_hu_2a86ab561b6eb465.png 1024w"
+loading="lazy"
+alt="fl studio"
+class="gallery-image"
+data-flex-grow="325"
+data-flex-basis="781px"
+>（也是有过音乐梦捏）和Audacity。fl这个软件印象中是有汉化的，但是但是我只找到了界面的汉化，里面的插件是全英文的，于是我的啃英语之路就这么开始了。&lt;br>
+首先是术语，我用过Adobe全家桶（AE/AU/PR）里面的术语是相通的，但是的我处于虽然看不懂这个词的意思但是知道这个选项会带来什么样的变化。于是乎我完成了我的第一波原始积累～（不过这里有个问题，我积累的都是术语，和生活中更普遍的用法不完全吻合，这导致我之后在英语阅读理解的时候虽然能看懂但是需要自己联想一下，举个例子thread）&lt;/p>
+&lt;p>其实后来这些软件也都慢慢有了中文汉化，在切换到汉化版本时候便有些豁然开朗的感觉（原来xxx的中文是xxx啊！）这第一波原始积累便完成了。&lt;/p>
+&lt;p>得益于高中接触到了🪜&lt;del>（这是能说的吗）&lt;/del>，在注册了谷歌等一众国外APP之后，我的生活中就多了一些英语语境。首先依然是上面那些软件，我开始查看各种教程，免不了接触一些英文教程，便也只能靠着时不时抽风的自动翻译艰难度日。日积月累之下，常用词便比较熟悉了。&lt;/p>
+&lt;p>再是高中的英语学习，规范的语言学习依旧是主力，事实证明那日日夜夜苦读阅读理解还是效果显著的。同时也开始了一些软件的汉化和教程制作工作（AVEE/Alight Motion，还有点别的但是我忘了）我的词汇量也在稳步上升中。在大学中，我终于将我的手机切换到了英文模式。&lt;/p>
+&lt;h2 id="发展">&lt;a href="#%e5%8f%91%e5%b1%95" class="header-anchor">&lt;/a>发展
+&lt;/h2>&lt;p>人人都说学计算机得学英语，但其实学过计算机就知道编程和英语没有半毛钱的关系。&lt;/p>
+&lt;p>需要用到英语的时候只有在读API文档的时候和写API的时候，因为文档是别人写的。
+而命名标识符的时候使用英语主要还是因为切换中英文输入很麻烦&lt;del>你看那打oi的变量全是abcdefg的&lt;/del>，而要使命名有意义便只能使用英语&lt;/p>
+&lt;blockquote>
+&lt;p>拼音&lt;/p>
+&lt;p>关于拼音其实很好解释，只要你学好了英语，使用英语就要比使用拼音更直观方便&lt;/p>
+&lt;p>因为不需要来换转换语境，还省去了标记声调&lt;/p>
+&lt;p>唯一的困难在于某些汉语实在是不好翻译，这种我觉得加个通用前缀然后直接汉语效率更高一点&lt;/p>&lt;/blockquote>
+&lt;p>总之在写了n多代码之后，就已经离不开英语了&lt;/p>
+&lt;h2 id="收益">&lt;a href="#%e6%94%b6%e7%9b%8a" class="header-anchor">&lt;/a>收益
+&lt;/h2>&lt;p>其实最大的收益其实就是别人找你借手机干活的时候发现是英语就还回来了🤣&lt;/p>
+&lt;p>对我来说收益很大，因为我有很多地方需要接触英语，但是对于并不从事计算机行业的人来说或许接触不到这么多英语环境的东西。老婆她总是抱怨我的手机找不到东西:P，即使她英语并不差。&lt;/p>
+&lt;h2 id="困难">&lt;a href="#%e5%9b%b0%e9%9a%be" class="header-anchor">&lt;/a>困难
+&lt;/h2>&lt;p>得益于平常只拿手机看qq，所以用起来其实没有任何障碍，常用的功能也都能通过图标记住，最大的不适感主要出现在日期的识别上。而且好歹是考过46级的人，将手机切换至英文真的没有想像中的那么难。&lt;/p>
+&lt;p>真的出现困难的时候其实是翻找设置的时候，但是这其实是个词汇量的问题，设置里面包含了大量的术语。但是又由于设置是有普遍性的，所以一旦掌握了这些词汇，使用其他软件的设置时便也能举一反三&lt;/p>
+&lt;h2 id="选择">&lt;a href="#%e9%80%89%e6%8b%a9" class="header-anchor">&lt;/a>选择
+&lt;/h2>&lt;p>家母前些日子也将手机调整成了英文，因为在写论文。不过觉得通过这种方式学习的效果其实比较局限，它更适合作为一个督促你学习的方式，如果看不懂手机，说明依然需要继续学习。如果看的懂了那说明学有小成，等到可以流畅使用的时候就只是个人选择问题了。&lt;/p>
+&lt;p>有需求才有改变，如果平常并不和英语打交道，其实没有必要切换成英文。&lt;/p></description></item><item><title>GitHub用提交消息来关闭issue</title><link>/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/</link><pubDate>Wed, 27 Nov 2024 11:39:04 +0800</pubDate><guid>/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/</guid><description>&lt;img src="/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113714800.png" alt="Featured image of post GitHub用提交消息来关闭issue" />&lt;p>一直很好奇这种在某个提交中关闭issue是怎么做到的&lt;/p>
+&lt;p>点进去仔细看发现&lt;img src="/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113340708.png"
+width="388"
+height="116"
+srcset="/p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113340708_hu_bedc22a68fa4d70b.png 480w, /p/github%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B6%88%E6%81%AF%E6%9D%A5%E5%85%B3%E9%97%ADissue/image-20241127113340708_hu_521e436a1eaefcb5.png 1024w"
+loading="lazy"
+alt="image-20241127113340708"
+class="gallery-image"
+data-flex-grow="334"
+data-flex-basis="802px"
+>&lt;/p>
+&lt;p>看来只要符合某种格式即可&lt;/p>
+&lt;p>根据GitHub&lt;a class="link" href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue" target="_blank" rel="noopener"
+>官方文档&lt;/a>，我们可以使用这些关键词：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>close&lt;/code>&lt;/li>
+&lt;li>&lt;code>closes&lt;/code>&lt;/li>
+&lt;li>&lt;code>closed&lt;/code>&lt;/li>
+&lt;li>&lt;code>fix&lt;/code>&lt;/li>
+&lt;li>&lt;code>fixes&lt;/code>&lt;/li>
+&lt;li>&lt;code>fixed&lt;/code>&lt;/li>
+&lt;li>&lt;code>resolve&lt;/code>&lt;/li>
+&lt;li>&lt;code>resolves&lt;/code>&lt;/li>
+&lt;li>&lt;code>resolved&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>使用如下格式：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Linked issue&lt;/th>
+&lt;th>Syntax&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Issue in the same repository&lt;/td>
+&lt;td>KEYWORD #ISSUE-NUMBER&lt;/td>
+&lt;td>&lt;code>Closes #10&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Issue in a different repository&lt;/td>
+&lt;td>KEYWORD OWNER/REPOSITORY#ISSUE-NUMBER&lt;/td>
+&lt;td>&lt;code>Fixes octo-org/octo-repo#100&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Multiple issues&lt;/td>
+&lt;td>Use full syntax for each issue&lt;/td>
+&lt;td>&lt;code>Resolves #10, resolves #123, resolves octo-org/octo-repo#100&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>闲聊：一些跟如何使用计算机有关的基础知识</title><link>/p/computer-basics/</link><pubDate>Tue, 26 Nov 2024 12:02:17 +0800</pubDate><guid>/p/computer-basics/</guid><description>&lt;img src="/p/computer-basics/cover.png" alt="Featured image of post 闲聊：一些跟如何使用计算机有关的基础知识" />&lt;h2 id="10进制-2进制-16进制">&lt;a href="#10%e8%bf%9b%e5%88%b6-2%e8%bf%9b%e5%88%b6-16%e8%bf%9b%e5%88%b6" class="header-anchor">&lt;/a>10进制 2进制 16进制
+&lt;/h2>&lt;p>Q：为什么要这么做？
+A：因为一堆0和1太长了，使用更大的进制可以减少长度。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl"> 5 2 3 15 这是10进制
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0101 0010 0011 1111 这是二进制
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 5 2 3 (15) 这是16进制
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 5 2 3 F 这是16进制，但是我们仅使用一个字符来表示(10-15我们用abcdef来表示)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="你存到磁盘的东西到底长什么样子">&lt;a href="#%e4%bd%a0%e5%ad%98%e5%88%b0%e7%a3%81%e7%9b%98%e7%9a%84%e4%b8%9c%e8%a5%bf%e5%88%b0%e5%ba%95%e9%95%bf%e4%bb%80%e4%b9%88%e6%a0%b7%e5%ad%90" class="header-anchor">&lt;/a>你存到磁盘的东西到底长什么样子
+&lt;/h2>&lt;p>我们小学二年级就学过，计算机存储的都是0和1，那么0和1怎么能变成文字/图片/音频/视频？&lt;/p>
+&lt;h3 id="编码">&lt;a href="#%e7%bc%96%e7%a0%81" class="header-anchor">&lt;/a>编码
+&lt;/h3>&lt;p>我们需要给出一个规则让数字和实物对应起来，这个规则就是编码。
+比如在猪咪国，猪咪规定&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>数字&lt;/th>
+&lt;th>文字&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>0&lt;/td>
+&lt;td>0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3&lt;/td>
+&lt;td>3&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&amp;hellip;&lt;/td>
+&lt;td>&amp;hellip;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>9&lt;/td>
+&lt;td>只&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>10&lt;/td>
+&lt;td>猪&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>11&lt;/td>
+&lt;td>狗&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>12&lt;/td>
+&lt;td>猫&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>13&lt;/td>
+&lt;td>🐷&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>14&lt;/td>
+&lt;td>🐶&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>15&lt;/td>
+&lt;td>🐱&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>16&lt;/td>
+&lt;td>今&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>17&lt;/td>
+&lt;td>天&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>18&lt;/td>
+&lt;td>看到了&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>那么&lt;code>今 天 🐷 看到了 8 只 🐶&lt;/code>就可以表示为&lt;code>16 17 18 8 9 14&lt;/code>&lt;/p>
+&lt;p>但是我们发现编码表太长了，一个16进制无法表示18个值，我们只能通过增加长度来解决这个问题，比如两个十六进制。&lt;/p>
+&lt;p>于是乎，&lt;code>16 17 18 8 9 14&lt;/code> =&amp;gt; &lt;code>10 11 12 08 09 0E&lt;/code>这就是编码后的结果。&lt;/p>
+&lt;blockquote>
+&lt;p>10怎么来的： 一个F是15 我们给他加1，向前进位，本位归零 =&amp;gt; 10&lt;/p>&lt;/blockquote>
+&lt;p>我们在解码的时候只需要反向查找编码表即可&lt;/p>
+&lt;h3 id="文件路径">&lt;a href="#%e6%96%87%e4%bb%b6%e8%b7%af%e5%be%84" class="header-anchor">&lt;/a>文件路径
+&lt;/h3>&lt;p>Q：文件存好了，那么怎么找到这个文件？&lt;br>
+A：路径！&lt;/p>
+&lt;p>我们用路径来定位一个文件(夹)，路径的最后有可能是文件夹，也有可能是文件。&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>根目录（linux:&lt;code>/&lt;/code>）：最外层的文件夹，在Windows上我们称之为盘符（&lt;code>C:\&lt;/code>,&lt;code>D:\&lt;/code>&amp;hellip;）&lt;/li>
+&lt;li>绝对路径：以盘符开头的路径，比如&lt;code>C:\Users\Administrator\Desktop\test.txt&lt;/code>&lt;/li>
+&lt;li>相对路径：相对于某个文件的路径，比如&lt;code>test.txt&lt;/code>&lt;/li>
+&lt;li>外层文件夹：&lt;code>..&lt;/code>&lt;/li>
+&lt;li>外2层文件夹：&lt;code>..\..\&lt;/code>&lt;/li>
+&lt;li>&lt;code>\&lt;/code>: 路径分隔符，在linux和macos上是&lt;code>/&lt;/code>&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;p>他们看起来是这样的&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image.png"
+width="1758"
+height="628"
+srcset="/p/computer-basics/image_hu_2dfd8f785d427d86.png 480w, /p/computer-basics/image_hu_d65971ca48b3072d.png 1024w"
+loading="lazy"
+alt="Windows"
+class="gallery-image"
+data-flex-grow="279"
+data-flex-basis="671px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image-2.png"
+width="700"
+height="516"
+srcset="/p/computer-basics/image-2_hu_e12ed6fc4d716aaf.png 480w, /p/computer-basics/image-2_hu_42a888f23450e067.png 1024w"
+loading="lazy"
+alt="Windows 文件属性"
+class="gallery-image"
+data-flex-grow="135"
+data-flex-basis="325px"
+> &lt;img src="/p/computer-basics/image-3.png"
+width="1946"
+height="704"
+srcset="/p/computer-basics/image-3_hu_3625bff449e77c81.png 480w, /p/computer-basics/image-3_hu_aa86221fb5b60cf5.png 1024w"
+loading="lazy"
+alt="MacOS"
+class="gallery-image"
+data-flex-grow="276"
+data-flex-basis="663px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image-4.png"
+width="674"
+height="536"
+srcset="/p/computer-basics/image-4_hu_4dd3a0c79cb85e18.png 480w, /p/computer-basics/image-4_hu_364df7e615902654.png 1024w"
+loading="lazy"
+alt="小米相册详情"
+class="gallery-image"
+data-flex-grow="125"
+data-flex-basis="301px"
+> &lt;img src="/p/computer-basics/image-5.png"
+width="696"
+height="414"
+srcset="/p/computer-basics/image-5_hu_a71c3eac5529c693.png 480w, /p/computer-basics/image-5_hu_fc7b327b44b99b3c.png 1024w"
+loading="lazy"
+alt="小米文件管理"
+class="gallery-image"
+data-flex-grow="168"
+data-flex-basis="403px"
+>&lt;/p>
+&lt;h2 id="文件类型--后缀">&lt;a href="#%e6%96%87%e4%bb%b6%e7%b1%bb%e5%9e%8b--%e5%90%8e%e7%bc%80" class="header-anchor">&lt;/a>文件类型 &amp;amp; 后缀
+&lt;/h2>&lt;blockquote>
+&lt;p>众所周知，&lt;code>.exe&lt;/code>/&lt;code>.msi&lt;/code> 文件是 Windows 系统下的可执行文件 &lt;code>.app&lt;/code> 文件是 macOS 系统下的可执行文件，&lt;code>.apk&lt;/code> 文件则是 Android 系统下的的安装包。&lt;/p>
+&lt;p>但是如果你把&lt;code>.ppt&lt;/code>改成&lt;code>.exe&lt;/code>它依然不能运行&lt;/p>
+&lt;p>显然文件后缀并不是确定文件类型的标准&lt;/p>&lt;/blockquote>
+&lt;h3 id="mime-类型">&lt;a href="#mime-%e7%b1%bb%e5%9e%8b" class="header-anchor">&lt;/a>MIME 类型
+&lt;/h3>&lt;p>MIME 是一个文件类型的合集，每个MIME类型由两部分组成，前面是数据的大类别，例如声音audio、图象image等，后面定义具体的种类。
+七种大类别：&lt;/p>
+&lt;ul>
+&lt;li>video
+&lt;ul>
+&lt;li>mp4 =&amp;gt; .mp4&lt;/li>
+&lt;li>webm =&amp;gt; .webm&lt;/li>
+&lt;li>x-msvideo =&amp;gt; .avi&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>image
+&lt;ul>
+&lt;li>jpeg =&amp;gt; .jpg / .jpeg&lt;/li>
+&lt;li>png =&amp;gt; .png&lt;/li>
+&lt;li>gif =&amp;gt; .gif&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>application
+&lt;ul>
+&lt;li>x-gzip =&amp;gt; .gz&lt;/li>
+&lt;li>json =&amp;gt; .json&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>text
+&lt;ul>
+&lt;li>html =&amp;gt; .html&lt;/li>
+&lt;li>css =&amp;gt; .css&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>audio
+&lt;ul>
+&lt;li>mp3 =&amp;gt; .mp3&lt;/li>
+&lt;li>ogg =&amp;gt; .ogg&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>multipart&lt;/li>
+&lt;li>message&lt;/li>
+&lt;/ul>
+&lt;p>不写了，剩下的还有好多。。。&lt;/p>
+&lt;h3 id="魔数">&lt;a href="#%e9%ad%94%e6%95%b0" class="header-anchor">&lt;/a>魔数
+&lt;/h3>&lt;p>说了这么多，到底怎么判断一个文件的类型？我们需要&lt;code>魔数&lt;/code>(&lt;code>Magic Number&lt;/code>)。&lt;/p>
+&lt;p>&lt;strong>魔数&lt;/strong>：是一种用于识别文件类型和格式的短序列字节。它们通常位于文件的开头。&lt;/p>
+&lt;p>还记得我们刚刚编码后的文件吗？&lt;code>10 11 12 08 09 0E&lt;/code>，文件的开头并不是固定的，而是根据文件格式而变化的。
+而对于图片（jpg）来说，文件开头是确定的&lt;code>FF D8&lt;/code>。&lt;/p>
+&lt;p>你可以参考这个Gist来查看更多魔数
+&lt;a class="link" href="https://gist.github.com/leommoore/f9e57ba2aa4bf197ebc5?permalink_comment_id=3860213" target="_blank" rel="noopener"
+>File Magic Numbers&lt;/a>&lt;/p>
+&lt;h3 id="后缀">&lt;a href="#%e5%90%8e%e7%bc%80" class="header-anchor">&lt;/a>后缀
+&lt;/h3>&lt;p>那我们为什么还需要后缀？&lt;br>
+答：后缀可以在不读文件的情况下就确定文件类型，更快。&lt;/p>
+&lt;blockquote>
+&lt;p>那么现在你应该明白了，改后缀并不能防止百度/QQ审查你发送的文件。&lt;/p>&lt;/blockquote>
+&lt;h2 id="编程相关">&lt;a href="#%e7%bc%96%e7%a8%8b%e7%9b%b8%e5%85%b3" class="header-anchor">&lt;/a>编程相关
+&lt;/h2>&lt;h3 id="环境变量">&lt;a href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f" class="header-anchor">&lt;/a>环境变量
+&lt;/h3>&lt;p>环境变量用来保存一些东西，在每个程序运行的时候都可获取到环境变量里面的值&lt;/p>
+&lt;p>比如，在Windows下，&lt;code>%USERPROFILE%&lt;/code>就是你的用户目录，&lt;code>%APPDATA%&lt;/code> 是你用户数据的目录，你可以在文件管理器中的路径栏输入上述变量后回车，你应该会跳转到指定位置&lt;/p>
+&lt;p>在windows下你可以通过&lt;code>右键开始菜单-&amp;gt;系统-&amp;gt;高级系统设置-&amp;gt;环境变量&lt;/code>来修改环境变量&lt;/p>
+&lt;p>&lt;img src="/p/computer-basics/image-6.png"
+width="452"
+height="1262"
+srcset="/p/computer-basics/image-6_hu_7ba92e86f29b2880.png 480w, /p/computer-basics/image-6_hu_841d452142d85a37.png 1024w"
+loading="lazy"
+alt="打开系统信息"
+class="gallery-image"
+data-flex-grow="35"
+data-flex-basis="85px"
+> &lt;img src="/p/computer-basics/image-7.png"
+width="2940"
+height="1478"
+srcset="/p/computer-basics/image-7_hu_c4d820649ee2dd8a.png 480w, /p/computer-basics/image-7_hu_7738c51a76221cc3.png 1024w"
+loading="lazy"
+alt="修改环境变量"
+class="gallery-image"
+data-flex-grow="198"
+data-flex-basis="477px"
+>&lt;/p>
+&lt;h3 id="命令行那个黑框框">&lt;a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e9%82%a3%e4%b8%aa%e9%bb%91%e6%a1%86%e6%a1%86" class="header-anchor">&lt;/a>命令行（那个黑框框）
+&lt;/h3>&lt;p>&lt;del>我相信你没有使用过命令行，并且以后也不会使用命令行，除非你是写代码的&lt;/del>&lt;/p>
+&lt;p>命令行（黑框）是操作系统提供的一个用于执行命令的东西。通过输入不同的命令来控制操作系统和使用软件。&lt;/p>
+&lt;p>举个例子，在Windows下，我们可以通过&lt;kbd>Win&lt;/kbd>+&lt;kbd>R&lt;/kbd>输入&lt;code>cmd&lt;/code>进入命令行，然后输入&lt;code>dir&lt;/code>查看当前目录的文件。如果你输入&lt;code>notepad.exe&lt;/code>还会打开记事本&lt;/p>
+&lt;p>命令的一般格式是&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">命令名字 -选项1 -选项2 --参数3 参数3的输入 --参数4 参数4的输入 参数1 参数2 ....
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>拿移动文件举例子，将文件从&lt;code>C:\Users\Administrator\Desktop\test.txt&lt;/code>移动到文件夹&lt;code>C:\Users\Administrator\Desktop\test2&lt;/code> &lt;em>注意这里我们使用了绝对路径&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">move&lt;/span> 文件路径 目标路径
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">move&lt;/span> C:\Users\Administrator\Desktop\test.txt C:\Users\Administrator\Desktop\test2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="工作目录">&lt;a href="#%e5%b7%a5%e4%bd%9c%e7%9b%ae%e5%bd%95" class="header-anchor">&lt;/a>工作目录
+&lt;/h4>&lt;p>你在哪里打开了cmd，它的工作目录就在哪里。&lt;/p>
+&lt;p>工作目录影响相对路径查找文件，他是从自己的工作目录为基准查找文件路径的。&lt;/p>
+&lt;p>cmd使用&lt;code>cd /d d:\xxx\xxx&lt;/code>来改变工作目录
+linux/mac使用&lt;code>cd 路径&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>所以使用黑框框其实很简单，就是需要记住命令的名字&lt;/p>&lt;/blockquote>
+&lt;h3 id="path">&lt;a href="#path" class="header-anchor">&lt;/a>PATH
+&lt;/h3>&lt;p>这个东西常见于黑框框，但是其实用的地方非常多&lt;/p>
+&lt;p>还记得你刚刚输入的&lt;code>notepad.exe&lt;/code>吗？为什么cmd可以帮你打开它，但随便输入一个名字告诉你找不到？&lt;br>
+答：PATH&lt;/p>
+&lt;p>PATH 告诉黑框框在什么路径下可以找到软件。&lt;code>notepad.exe&lt;/code>在&lt;code>C:\Windows\System32&lt;/code>下，而PATH正好有这个路径，于是黑框框便可以找到它。&lt;/p>
+&lt;p>PATH 通常包含多个路径，用&lt;code>:&lt;/code>分割&lt;/p></description></item><item><title>我的 MacOS 常用软件</title><link>/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link><pubDate>Tue, 26 Nov 2024 10:39:04 +0800</pubDate><guid>/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid><description>&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.jpg" alt="Featured image of post 我的 MacOS 常用软件" />&lt;p>无意间看到这位的&lt;a class="link" href="https://blog.stapxs.cn/archives/mac-app" target="_blank" rel="noopener"
+>博客&lt;/a>，里面的软件都非常有意思，作为补充，我在这里也分享一下我自己常用的软件&lt;/p>
+&lt;h2 id="基本">&lt;a href="#%e5%9f%ba%e6%9c%ac" class="header-anchor">&lt;/a>基本
+&lt;/h2>&lt;h3 id="快捷搜索alfred">&lt;a href="#%e5%bf%ab%e6%8d%b7%e6%90%9c%e7%b4%a2alfred" class="header-anchor">&lt;/a>快捷搜索：Alfred
+&lt;/h3>&lt;p>&lt;a class="link" href="https://www.alfred.app/" target="_blank" rel="noopener"
+>官网&lt;/a>
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image.png"
+width="1436"
+height="804"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image_hu_ed6c44deac9f27f.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image_hu_623e865db0b837f0.png 1024w"
+loading="lazy"
+alt="sc"
+class="gallery-image"
+data-flex-grow="178"
+data-flex-basis="428px"
+>
+是的我知道你要说spotlight了，但是alfred更快并且支持更多功能，比如剪贴板：
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-1.png"
+width="1436"
+height="864"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-1_hu_d0714c425ca73651.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-1_hu_45cdb792545f0ee.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="166"
+data-flex-basis="398px"
+>
+词典集成
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-2.png"
+width="1436"
+height="988"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-2_hu_ba7d4072024d0919.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-2_hu_c4bc85180bc3264d.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="348px"
+>
+以及超多扩展
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-3.png"
+width="464"
+height="495"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-3_hu_7ee4eb011e980c43.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-3_hu_b00b45608836ca53.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="93"
+data-flex-basis="224px"
+>&lt;/p>
+&lt;p>&lt;del>不过这个其实真用处不大，除非你记得住&lt;/del>&lt;/p>
+&lt;h3 id="浏览器arc">&lt;a href="#%e6%b5%8f%e8%a7%88%e5%99%a8arc" class="header-anchor">&lt;/a>浏览器：Arc
+&lt;/h3>&lt;p>这东西真给我感觉有点&lt;code>Only Apple Can Do&lt;/code>了&lt;/p>
+&lt;p>&lt;del>因为Windows测试版本难用的要死，过几天就打不开了不知道什么毛病&lt;/del>&lt;/p>
+&lt;ul>
+&lt;li>无框&lt;/li>
+&lt;li>带分栏&lt;/li>
+&lt;li>带弹出预览&lt;/li>
+&lt;li>使用快捷键来操作页面&lt;/li>
+&lt;/ul>
+&lt;p>&lt;em>啊这确实是我心目中理想的浏览器该有的样子✨&lt;/em>
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-4.png"
+width="5088"
+height="3134"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-4_hu_7201fea7624178f8.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-4_hu_1767592e6ac8b734.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="162"
+data-flex-basis="389px"
+>&lt;/p>
+&lt;p>为什么说这玩意&lt;code>Only Apple Can Do&lt;/code>主要是和windows测试版一对比就能看出来Mac下这些界面元素的处理要比win好太多了一看就是用的系统提供的组件，win卡的不行。&lt;del>等更新咯，还能咋办&lt;/del>&lt;/p>
+&lt;h2 id="图片">&lt;a href="#%e5%9b%be%e7%89%87" class="header-anchor">&lt;/a>图片
+&lt;/h2>&lt;h3 id="截图pixpin">&lt;a href="#%e6%88%aa%e5%9b%bepixpin" class="header-anchor">&lt;/a>截图：Pixpin
+&lt;/h3>&lt;p>&lt;del>嗯这不是个MacOnly软件，我是不是不该在这里分享，算了到时候再写一遍好了&lt;/del>&lt;/p>
+&lt;p>pixpin现已支持MacOS！！！
+&lt;a class="link" href="https://pixpinapp.com/" target="_blank" rel="noopener"
+>官网&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>抄归抄，现在做的确实已经比snipaste要好多了&lt;/p>&lt;/blockquote>
+&lt;p>出了个&lt;a class="link" href="https://pixpinapp.com/start/pro-features" target="_blank" rel="noopener"
+>会员功能&lt;/a>
+感觉没啥大用，想支持的可以支持一下&lt;/p>
+&lt;h2 id="misc">&lt;a href="#misc" class="header-anchor">&lt;/a>Misc
+&lt;/h2>&lt;h3 id="磁盘扫描disk-space-analyzer">&lt;a href="#%e7%a3%81%e7%9b%98%e6%89%ab%e6%8f%8fdisk-space-analyzer" class="header-anchor">&lt;/a>磁盘扫描：Disk Space Analyzer
+&lt;/h3>&lt;p>&lt;del>不是我喜欢冷门软件，而是冷门软件更有性价比&lt;/del>
+相比于&lt;a class="link" href="https://daisydiskapp.com/" target="_blank" rel="noopener"
+>daisydiskapp&lt;/a>，Disk Space Analyzer免费并且你可以直接在商店下载
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-8.png"
+width="2490"
+height="1424"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-8_hu_b02f66b76d995c04.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-8_hu_dc15197a8512bab0.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="174"
+data-flex-basis="419px"
+>&lt;/p>
+&lt;h3 id="垃圾清理appcleaner--uninstallpkg">&lt;a href="#%e5%9e%83%e5%9c%be%e6%b8%85%e7%90%86appcleaner--uninstallpkg" class="header-anchor">&lt;/a>垃圾清理：AppCleaner &amp;amp; UninstallPkg
+&lt;/h3>&lt;p>&lt;strong>谁告诉你Mac卸载软件和安卓一样点点卸载或者扔垃圾桶就完事了？&lt;/strong>&lt;/p>
+&lt;p>会拉屎的，而且卸载了不会把屎也带走&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">brew install appcleaner &lt;span class="c1">#卸载app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">brew install uninstallpkg &lt;span class="c1">#卸载pkg包&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-6.png"
+width="1028"
+height="1228"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-6_hu_7678f7ba92fcba9b.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-6_hu_c90f2d792d6e1608.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="83"
+data-flex-basis="200px"
+> &lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-7.png"
+width="2000"
+height="1376"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-7_hu_323a5841056c6826.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-7_hu_2f729c292acd3d16.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="348px"
+>&lt;/p>
+&lt;h3 id="虚拟机parallel-desktop">&lt;a href="#%e8%99%9a%e6%8b%9f%e6%9c%baparallel-desktop" class="header-anchor">&lt;/a>虚拟机：Parallel Desktop
+&lt;/h3>&lt;p>哎大名鼎鼎的PD，真的非常好用，网上破解版也不少，可以去找找。&lt;/p>
+&lt;p>不过 VMware Fusion 免费了，不想折腾来试试这个咯&lt;/p>
+&lt;h2 id="dev">&lt;a href="#dev" class="header-anchor">&lt;/a>Dev
+&lt;/h2>&lt;h3 id="android-file-transfer">&lt;a href="#android-file-transfer" class="header-anchor">&lt;/a>Android File Transfer
+&lt;/h3>&lt;p>嗯，&lt;code>Only Apple Need This.&lt;/code>&lt;/p>
+&lt;p>和安卓传文件的，不如adb，凑活用吧&lt;/p>
+&lt;h3 id="终端iterm2">&lt;a href="#%e7%bb%88%e7%ab%afiterm2" class="header-anchor">&lt;/a>终端：iTerm2
+&lt;/h3>&lt;p>赶紧把自带的那坨扔了
+&lt;a class="link" href="https://iterm2.com/" target="_blank" rel="noopener"
+>官网&lt;/a>&lt;/p>
+&lt;p>一开始用的wezterm，但是发现没办法隐藏最上面那一行窗口标题啥的，于是就换了iTerm2
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-5.png"
+width="2260"
+height="1150"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-5_hu_55241c82c07bc33.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-5_hu_fc0cc24310ee184c.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="196"
+data-flex-basis="471px"
+>&lt;/p></description></item><item><title>👋Hi Hugo</title><link>/p/hi-hugo/</link><pubDate>Tue, 26 Nov 2024 10:02:28 +0800</pubDate><guid>/p/hi-hugo/</guid><description>&lt;img src="/p/hi-hugo/cover.jpg" alt="Featured image of post 👋Hi Hugo" />&lt;h2 id="why">&lt;a href="#why" class="header-anchor">&lt;/a>Why
+&lt;/h2>&lt;p>原来的hexo实在是过于老旧了，而且很慢。
+今天&lt;del>其实是昨天半夜&lt;/del>又心血来潮想搭一个记录一下生活，就想起来了hugo。&lt;/p>
+&lt;h2 id="hugo">&lt;a href="#hugo" class="header-anchor">&lt;/a>Hugo
+&lt;/h2>&lt;p>MacOS 直接用homebrew安装就好了，非常方便&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">brew install hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>主题不少，一眼就看中了&lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>Stack&lt;/a>&lt;/p>
+&lt;p>不过这个主题好像改的东西挺多，加载方式也不太一样，我用的&lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>模板&lt;/a>&lt;/p>
+&lt;p>不过我喜欢可以折叠的目录，于是我改了改。
+&lt;img src="/p/hi-hugo/image.png"
+width="1426"
+height="680"
+srcset="/p/hi-hugo/image_hu_70773a08433082ef.png 480w, /p/hi-hugo/image_hu_5504a4b86bf077df.png 1024w"
+loading="lazy"
+alt="Toc Toggle"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="503px"
+>
+你可以把依赖替换为我的fork版本&lt;a class="link" href="https://github.com/RikaCelery/hugo-theme-stack" target="_blank" rel="noopener"
+>RikaCelery/hugo-theme-stack&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">[go.mod]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">module github.com/CaiJimmy/hugo-theme-stack-starter
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">go 1.17
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">require github.com/CaiJimmy/hugo-theme-stack/v3 v3.29.0 // indirect
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ replace github.com/RikaCelery/hugo-theme-stack/v3 =&amp;gt; ./stack
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>然后运行一下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo mod tidy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>不得不说，hugo是真的快！&lt;/p>&lt;/blockquote></description></item><item><title>Archives</title><link>/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>/archives/</guid><description/></item><item><title>Links</title><link>/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/links/</guid><description>&lt;!-- To use this feature, add `links` section to frontmatter.
+This page's frontmatter:
+```yaml
+links:
+- title: GitHub
+description: GitHub is the world's largest software development platform.
+website: https://github.com
+image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+- title: TypeScript
+description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+website: https://www.typescriptlang.org
+image: ts-logo-128.jpg
+```
+`image` field accepts both local and external images. --></description></item><item><title>Search</title><link>/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/search/</guid><description/></item></channel></rss>
