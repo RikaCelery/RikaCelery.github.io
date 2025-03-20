@@ -1,17 +1,17 @@
 ---
 title: "CORS踩坑记录"
-description: 
+description: 学艺不精啊
 date: 2025-03-06T21:12:09+08:00
 fullpage: 
 toc: 
 hidden: false
+notify: false
 comments: 
 categories: 
   - oops
 tags: 
 draft: false
 ---
-
 > Cross-origin resource sharing（CORS，或通俗地译为跨域资源共享）是一种基于HTTP 头的机制，该机制通过允许服务器标示除了它自己以外的其他源（域、协议或端口），使得浏览器允许这些源访问加载自己的资源
 
 ## 同源策略

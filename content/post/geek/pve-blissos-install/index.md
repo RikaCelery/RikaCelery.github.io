@@ -12,6 +12,9 @@ comments:
 categories: 
   - geek
 tags: 
+  - BlissOS
+  - PVE
+  - Android
 draft: false
 ---
 ## 起因
@@ -32,7 +35,7 @@ draft: false
 
 ![1742427028737](image/index/1742427028737.png)
 
-显卡记得选VIrGL GPU，否则进不去系统。新的pve需要`apt install libgl1 libegl1`
+显卡记得选VIrGL GPU，否则进不去系统。新的pve需要 `apt install libgl1 libegl1`
 
 ![1742427097994](image/index/1742427097994.png)
 
