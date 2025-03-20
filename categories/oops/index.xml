@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>😵踩坑记录 on Celery的菜园子</title><link>/categories/oops/</link><description>Recent content in 😵踩坑记录 on Celery的菜园子</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 06 Mar 2025 21:12:09 +0800</lastBuildDate><atom:link href="/categories/oops/index.xml" rel="self" type="application/rss+xml"/><item><title>CORS踩坑记录</title><link>/p/cors%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</link><pubDate>Thu, 06 Mar 2025 21:12:09 +0800</pubDate><guid>/p/cors%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</guid><description>&lt;blockquote>
+&lt;p>Cross-origin resource sharing（CORS，或通俗地译为跨域资源共享）是一种基于HTTP 头的机制，该机制通过允许服务器标示除了它自己以外的其他源（域、协议或端口），使得浏览器允许这些源访问加载自己的资源&lt;/p>&lt;/blockquote>
+&lt;h2 id="同源策略">&lt;a href="#%e5%90%8c%e6%ba%90%e7%ad%96%e7%95%a5" class="header-anchor">&lt;/a>同源策略
+&lt;/h2>&lt;p>用于限制一个源的文档或者它加载的脚本如何能与另一个源的资源进行交互。&lt;/p>
+&lt;p>只有满足以下条件的请求才是同源的：&lt;/p>
+&lt;ol>
+&lt;li>协议相同（file://被视作非同源，无论路径是否一致，但某些浏览器处理方式可能不同）&lt;/li>
+&lt;li>域名相同&lt;/li>
+&lt;li>端口相同&lt;/li>
+&lt;/ol>
+&lt;p>出于安全性，浏览器限制脚本内发起的跨源 HTTP 请求。例如，XMLHttpRequest 和 Fetch API 遵循同源策略。这意味着使用这些 API 的 Web 应用程序只能从加载应用程序的同一个域请求 HTTP 资源，除非响应报文包含了正确 CORS 响应头。&lt;/p>
+&lt;h2 id="cors-响应头">&lt;a href="#cors-%e5%93%8d%e5%ba%94%e5%a4%b4" class="header-anchor">&lt;/a>CORS 响应头
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Allow-Origin: &amp;lt;origin&amp;gt; | *
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>告诉浏览器允许那些源访问资源，*表示允许所有源访问&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Expose-Headers: &amp;lt;header-name&amp;gt;[, &amp;lt;header-name&amp;gt;]*
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>告诉浏览器哪些响应头可以暴露给外部脚本，默认情况下，浏览器不允许外部脚本访问响应头，除非响应头中包含 &lt;code>Access-Control-Expose-Headers&lt;/code> 头，并且该头中包含要暴露的响应头名称。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Allow-Methods: &amp;lt;method&amp;gt;[, &amp;lt;method&amp;gt;]*
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>允许的请求方法，默认情况下，浏览器不允许外部脚本发起除 GET、HEAD、POST &lt;em>(简单请求)&lt;/em> 外的请求，除非响应头中包含 &lt;code>Access-Control-Allow-Methods&lt;/code> 头，并且该头中包含要允许的请求方法名称。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Access-Control-Allow-Headers: &amp;lt;header-name&amp;gt;[, &amp;lt;header-name&amp;gt;]*
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>用于预检请求的响应。其指明了实际请求中允许携带的标头字段。
+这个标头是服务器端对浏览器端 Access-Control-Request-Headers 标头的响应。&lt;/p>
+&lt;h2 id="踩坑">&lt;a href="#%e8%b8%a9%e5%9d%91" class="header-anchor">&lt;/a>踩坑
+&lt;/h2>&lt;p>在执行跨域请求的时候，其实并不是只需要设置预检请求的响应头，还需要设置实际的请求的响应头。
+拿保安和办公室举个例子：当你进别的公司办事时需要问保安，还需要里面的人同意&lt;/p>
+&lt;p>本来如果要用插件的话应该会帮你处理好这些，但是我在用goproxy做一些mitm妙妙操作，所有请求都需要自己处理
+折腾了半天才发现是只对OPTIONS做了添加请求头处理😭&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">p&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">proxyContext&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">makeProxyServer&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProxyHttpServer&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProxyHttpServer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Verbose&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">filter&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ReqHostMatches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">MustCompile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">`xxx`&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">OnRequest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nf">HandleConnect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AlwaysMitm&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">OnRequest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nf">DoFunc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ctx&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProxyCtx&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Response&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Method&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;OPTIONS&amp;#34;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">LogLevelInfo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;OPTIONS (已忽略)&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 使用 204 No Content 作为标准响应状态码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewResponse&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ContentTypeText&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 自动设置为 &amp;#34;text/plain&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusNoContent&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 204&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Origin&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Methods&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;POST, GET, OPTIONS&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Headers&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Content-Type, Authorization&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Vary&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Origin, Access-Control-Request-Headers&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">path&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">URL&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">switch&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="nx">strings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">HasPrefix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;activate&amp;#34;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">io&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ReadAll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">g&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">gjson&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ParseBytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">goproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewResponse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;application/json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusOK&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">makeFakeBody&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">g&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;license_key&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nf">String&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="s">&amp;#34;?&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Origin&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Methods&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;POST, GET, OPTIONS&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Access-Control-Allow-Headers&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Content-Type, Authorization&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Vary&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Origin, Access-Control-Request-Headers&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>写的略丑，能跑就行（&lt;/p></description></item><item><title>Rsync / 结尾斜杠</title><link>/p/rsync-/-%E7%BB%93%E5%B0%BE%E6%96%9C%E6%9D%A0/</link><pubDate>Sun, 08 Dec 2024 15:20:48 +0800</pubDate><guid>/p/rsync-/-%E7%BB%93%E5%B0%BE%E6%96%9C%E6%9D%A0/</guid><description>&lt;p>带/表示里面的内容
+不带/表示一个文件/文件夹&lt;/p></description></item><item><title>Ida9 崩溃解决</title><link>/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/</link><pubDate>Sat, 30 Nov 2024 14:10:29 +0800</pubDate><guid>/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/</guid><description>&lt;img src="/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image.png" alt="Featured image of post Ida9 崩溃解决" />&lt;p>&lt;img src="/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image.png"
+width="510"
+height="412"
+srcset="/p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image_hu_702500d774b5e080.png 480w, /p/ida9-%E5%B4%A9%E6%BA%83%E8%A7%A3%E5%86%B3/image_hu_c1b90f5c73173458.png 1024w"
+loading="lazy"
+alt="crash"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="297px"
+>&lt;/p>
+&lt;p>好不容易下到一个ida，结果打开显示&lt;code>ida has almost crashed!&lt;/code>&lt;/p>
+&lt;h2 id="解决">&lt;a href="#%e8%a7%a3%e5%86%b3" class="header-anchor">&lt;/a>解决
+&lt;/h2>&lt;p>python的问题，进入到&lt;code>IDA Professional 9.0.app/Contents/MacOS&lt;/code>后运行 &lt;code>./idapyswitch&lt;/code>&lt;/p>
+&lt;p>任选一个python即可&lt;/p>
+&lt;p>from&lt;a class="link" href="https://bbs.kanxue.com/thread-282872.htm#:~:text=%E5%90%AF%E5%8A%A8%E5%B4%A9%E6%BA%83%E4%BD%BF%E7%94%A8%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E5%88%87%E6%8D%A2python%E7%89%88%E6%9C%AC%0A/Applications/IDA%5C%C2%A0Professional%5C%C2%A09.0.app/Contents/MacOS/idapyswitch%0A%0A%0Ahttps%3A//macked.app/ida%2Dprofessional%2D9%2Dfor%2Dmac%2Dcrack.html" target="_blank" rel="noopener"
+>看雪论坛&lt;/a>&lt;/p></description></item></channel></rss>

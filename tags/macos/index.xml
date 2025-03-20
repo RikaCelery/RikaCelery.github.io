@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MacOS on Celery的菜园子</title><link>/tags/macos/</link><description>Recent content in MacOS on Celery的菜园子</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 26 Nov 2024 10:39:04 +0800</lastBuildDate><atom:link href="/tags/macos/index.xml" rel="self" type="application/rss+xml"/><item><title>我的 MacOS 常用软件</title><link>/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</link><pubDate>Tue, 26 Nov 2024 10:39:04 +0800</pubDate><guid>/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid><description>&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.jpg" alt="Featured image of post 我的 MacOS 常用软件" />&lt;p>无意间看到这位的&lt;a class="link" href="https://blog.stapxs.cn/archives/mac-app" target="_blank" rel="noopener"
+>博客&lt;/a>，里面的软件都非常有意思，作为补充，我在这里也分享一下我自己常用的软件&lt;/p>
+&lt;h2 id="基本">&lt;a href="#%e5%9f%ba%e6%9c%ac" class="header-anchor">&lt;/a>基本
+&lt;/h2>&lt;h3 id="快捷搜索alfred">&lt;a href="#%e5%bf%ab%e6%8d%b7%e6%90%9c%e7%b4%a2alfred" class="header-anchor">&lt;/a>快捷搜索：Alfred
+&lt;/h3>&lt;p>&lt;a class="link" href="https://www.alfred.app/" target="_blank" rel="noopener"
+>官网&lt;/a>
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image.png"
+width="1436"
+height="804"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image_hu_ed6c44deac9f27f.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image_hu_623e865db0b837f0.png 1024w"
+loading="lazy"
+alt="sc"
+class="gallery-image"
+data-flex-grow="178"
+data-flex-basis="428px"
+>
+是的我知道你要说spotlight了，但是alfred更快并且支持更多功能，比如剪贴板：
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-1.png"
+width="1436"
+height="864"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-1_hu_d0714c425ca73651.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-1_hu_45cdb792545f0ee.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="166"
+data-flex-basis="398px"
+>
+词典集成
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-2.png"
+width="1436"
+height="988"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-2_hu_ba7d4072024d0919.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-2_hu_c4bc85180bc3264d.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="348px"
+>
+以及超多扩展
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-3.png"
+width="464"
+height="495"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-3_hu_7ee4eb011e980c43.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-3_hu_b00b45608836ca53.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="93"
+data-flex-basis="224px"
+>&lt;/p>
+&lt;p>&lt;del>不过这个其实真用处不大，除非你记得住&lt;/del>&lt;/p>
+&lt;h3 id="浏览器arc">&lt;a href="#%e6%b5%8f%e8%a7%88%e5%99%a8arc" class="header-anchor">&lt;/a>浏览器：Arc
+&lt;/h3>&lt;p>这东西真给我感觉有点&lt;code>Only Apple Can Do&lt;/code>了&lt;/p>
+&lt;p>&lt;del>因为Windows测试版本难用的要死，过几天就打不开了不知道什么毛病&lt;/del>&lt;/p>
+&lt;ul>
+&lt;li>无框&lt;/li>
+&lt;li>带分栏&lt;/li>
+&lt;li>带弹出预览&lt;/li>
+&lt;li>使用快捷键来操作页面&lt;/li>
+&lt;/ul>
+&lt;p>&lt;em>啊这确实是我心目中理想的浏览器该有的样子✨&lt;/em>
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-4.png"
+width="5088"
+height="3134"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-4_hu_7201fea7624178f8.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-4_hu_1767592e6ac8b734.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="162"
+data-flex-basis="389px"
+>&lt;/p>
+&lt;p>为什么说这玩意&lt;code>Only Apple Can Do&lt;/code>主要是和windows测试版一对比就能看出来Mac下这些界面元素的处理要比win好太多了一看就是用的系统提供的组件，win卡的不行。&lt;del>等更新咯，还能咋办&lt;/del>&lt;/p>
+&lt;h2 id="图片">&lt;a href="#%e5%9b%be%e7%89%87" class="header-anchor">&lt;/a>图片
+&lt;/h2>&lt;h3 id="截图pixpin">&lt;a href="#%e6%88%aa%e5%9b%bepixpin" class="header-anchor">&lt;/a>截图：Pixpin
+&lt;/h3>&lt;p>&lt;del>嗯这不是个MacOnly软件，我是不是不该在这里分享，算了到时候再写一遍好了&lt;/del>&lt;/p>
+&lt;p>pixpin现已支持MacOS！！！
+&lt;a class="link" href="https://pixpinapp.com/" target="_blank" rel="noopener"
+>官网&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>抄归抄，现在做的确实已经比snipaste要好多了&lt;/p>&lt;/blockquote>
+&lt;p>出了个&lt;a class="link" href="https://pixpinapp.com/start/pro-features" target="_blank" rel="noopener"
+>会员功能&lt;/a>
+感觉没啥大用，想支持的可以支持一下&lt;/p>
+&lt;h2 id="misc">&lt;a href="#misc" class="header-anchor">&lt;/a>Misc
+&lt;/h2>&lt;h3 id="磁盘扫描disk-space-analyzer">&lt;a href="#%e7%a3%81%e7%9b%98%e6%89%ab%e6%8f%8fdisk-space-analyzer" class="header-anchor">&lt;/a>磁盘扫描：Disk Space Analyzer
+&lt;/h3>&lt;p>&lt;del>不是我喜欢冷门软件，而是冷门软件更有性价比&lt;/del>
+相比于&lt;a class="link" href="https://daisydiskapp.com/" target="_blank" rel="noopener"
+>daisydiskapp&lt;/a>，Disk Space Analyzer免费并且你可以直接在商店下载
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-8.png"
+width="2490"
+height="1424"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-8_hu_b02f66b76d995c04.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-8_hu_dc15197a8512bab0.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="174"
+data-flex-basis="419px"
+>&lt;/p>
+&lt;h3 id="垃圾清理appcleaner--uninstallpkg">&lt;a href="#%e5%9e%83%e5%9c%be%e6%b8%85%e7%90%86appcleaner--uninstallpkg" class="header-anchor">&lt;/a>垃圾清理：AppCleaner &amp;amp; UninstallPkg
+&lt;/h3>&lt;p>&lt;strong>谁告诉你Mac卸载软件和安卓一样点点卸载或者扔垃圾桶就完事了？&lt;/strong>&lt;/p>
+&lt;p>会拉屎的，而且卸载了不会把屎也带走&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">brew install appcleaner &lt;span class="c1">#卸载app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">brew install uninstallpkg &lt;span class="c1">#卸载pkg包&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-6.png"
+width="1028"
+height="1228"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-6_hu_7678f7ba92fcba9b.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-6_hu_c90f2d792d6e1608.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="83"
+data-flex-basis="200px"
+> &lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-7.png"
+width="2000"
+height="1376"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-7_hu_323a5841056c6826.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-7_hu_2f729c292acd3d16.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="348px"
+>&lt;/p>
+&lt;h3 id="虚拟机parallel-desktop">&lt;a href="#%e8%99%9a%e6%8b%9f%e6%9c%baparallel-desktop" class="header-anchor">&lt;/a>虚拟机：Parallel Desktop
+&lt;/h3>&lt;p>哎大名鼎鼎的PD，真的非常好用，网上破解版也不少，可以去找找。&lt;/p>
+&lt;p>不过 VMware Fusion 免费了，不想折腾来试试这个咯&lt;/p>
+&lt;h2 id="dev">&lt;a href="#dev" class="header-anchor">&lt;/a>Dev
+&lt;/h2>&lt;h3 id="android-file-transfer">&lt;a href="#android-file-transfer" class="header-anchor">&lt;/a>Android File Transfer
+&lt;/h3>&lt;p>嗯，&lt;code>Only Apple Need This.&lt;/code>&lt;/p>
+&lt;p>和安卓传文件的，不如adb，凑活用吧&lt;/p>
+&lt;h3 id="终端iterm2">&lt;a href="#%e7%bb%88%e7%ab%afiterm2" class="header-anchor">&lt;/a>终端：iTerm2
+&lt;/h3>&lt;p>赶紧把自带的那坨扔了
+&lt;a class="link" href="https://iterm2.com/" target="_blank" rel="noopener"
+>官网&lt;/a>&lt;/p>
+&lt;p>一开始用的wezterm，但是发现没办法隐藏最上面那一行窗口标题啥的，于是就换了iTerm2
+&lt;img src="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-5.png"
+width="2260"
+height="1150"
+srcset="/p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-5_hu_55241c82c07bc33.png 480w, /p/%E6%88%91%E7%9A%84-macos-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/image-5_hu_fc0cc24310ee184c.png 1024w"
+loading="lazy"
+alt="alt text"
+class="gallery-image"
+data-flex-grow="196"
+data-flex-basis="471px"
+>&lt;/p></description></item></channel></rss>

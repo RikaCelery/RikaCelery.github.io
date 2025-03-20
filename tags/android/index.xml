@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Android on Celery的菜园子</title><link>/tags/android/</link><description>Recent content in Android on Celery的菜园子</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 20 Mar 2025 00:34:15 +0800</lastBuildDate><atom:link href="/tags/android/index.xml" rel="self" type="application/rss+xml"/><item><title>Pve 安装 BlissOS Zenith（安卓13）</title><link>/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/</link><pubDate>Thu, 20 Mar 2025 00:34:15 +0800</pubDate><guid>/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/</guid><description>&lt;h2 id="起因">&lt;a href="#%e8%b5%b7%e5%9b%a0" class="header-anchor">&lt;/a>起因
+&lt;/h2>&lt;p>&lt;del>老婆在玩如鸳，刷本，mumu模拟器老卡死&lt;/del>&lt;/p>
+&lt;p>&lt;del>我就想着NAS都装好了，不搞个安卓虚拟机岂不是亏了（&lt;/del>&lt;/p>
+&lt;h2 id="准备">&lt;a href="#%e5%87%86%e5%a4%87" class="header-anchor">&lt;/a>准备
+&lt;/h2>&lt;p>官网下载安装镜像&lt;a class="link" href="https://blissos.org/index.html#download" target="_blank" rel="noopener"
+>BlissOS&lt;/a>&lt;/p>
+&lt;p>我选择的是Zenith（基于最新版本）Gapps（谷歌全家桶）版&lt;/p>
+&lt;h2 id="创建虚拟机">&lt;a href="#%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba" class="header-anchor">&lt;/a>创建虚拟机
+&lt;/h2>&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427009470.png"
+width="1426"
+height="330"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427009470_hu_97f06681247f5972.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427009470_hu_2aef7489029ddaf8.png 1024w"
+loading="lazy"
+alt="1742427009470"
+class="gallery-image"
+data-flex-grow="432"
+data-flex-basis="1037px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427028737.png"
+width="1400"
+height="400"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427028737_hu_97740aabc91c1957.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427028737_hu_d95618f9f7982b1e.png 1024w"
+loading="lazy"
+alt="1742427028737"
+class="gallery-image"
+data-flex-grow="350"
+data-flex-basis="840px"
+>&lt;/p>
+&lt;p>显卡记得选VIrGL GPU，否则进不去系统。新的pve需要 &lt;code>apt install libgl1 libegl1&lt;/code>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427097994.png"
+width="1468"
+height="650"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427097994_hu_f448eee62b8ae00f.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427097994_hu_2c50de3f221f4303.png 1024w"
+loading="lazy"
+alt="1742427097994"
+class="gallery-image"
+data-flex-grow="225"
+data-flex-basis="542px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427126740.png"
+width="1420"
+height="460"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427126740_hu_616f4fbace2018b3.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427126740_hu_2d90d41b69a267c0.png 1024w"
+loading="lazy"
+alt="1742427126740"
+class="gallery-image"
+data-flex-grow="308"
+data-flex-basis="740px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427144050.png"
+width="1456"
+height="392"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427144050_hu_48bae4fe92dad429.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427144050_hu_a286559a621eca21.png 1024w"
+loading="lazy"
+alt="1742427144050"
+class="gallery-image"
+data-flex-grow="371"
+data-flex-basis="891px"
+>&lt;/p>
+&lt;p>内存建议8G起步（玩游戏的话）4G能跑，之后一路下一步即可&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427253865.png"
+width="1282"
+height="512"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427253865_hu_cb1d44d36209c502.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427253865_hu_7352151559dd468c.png 1024w"
+loading="lazy"
+alt="1742427253865"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="600px"
+>&lt;/p>
+&lt;h2 id="安装">&lt;a href="#%e5%ae%89%e8%a3%85" class="header-anchor">&lt;/a>安装
+&lt;/h2>&lt;p>装之前可以进Live看一眼功能是否正常，我就不看了&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427359697.png"
+width="1300"
+height="960"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427359697_hu_b88f0ea3236edaa1.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427359697_hu_bee2a0ccf9f79d2b.png 1024w"
+loading="lazy"
+alt="1742427359697"
+class="gallery-image"
+data-flex-grow="135"
+data-flex-basis="325px"
+>&lt;/p>
+&lt;h3 id="分区">&lt;a href="#%e5%88%86%e5%8c%ba" class="header-anchor">&lt;/a>分区
+&lt;/h3>&lt;p>进入之后会到UEFI分区界面，需要创建两个分区&lt;/p>
+&lt;p>GPT格式&lt;/p>
+&lt;ul>
+&lt;li>EFI（1G）&lt;/li>
+&lt;li>Linux Filesystem（剩下的空间）&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427403881.png"
+width="1042"
+height="556"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427403881_hu_268657cb872d8222.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427403881_hu_5986c55a6b628111.png 1024w"
+loading="lazy"
+alt="1742427403881"
+class="gallery-image"
+data-flex-grow="187"
+data-flex-basis="449px"
+>&lt;/p>
+&lt;p>选择cfdisk&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427480868.png"
+width="798"
+height="444"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427480868_hu_56f05afe2794e01d.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427480868_hu_e3ff8249953ce832.png 1024w"
+loading="lazy"
+alt="1742427480868"
+class="gallery-image"
+data-flex-grow="179"
+data-flex-basis="431px"
+>&lt;/p>
+&lt;p>选择GPT&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427504648.png"
+width="318"
+height="160"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427504648_hu_9b8db994bdf1f4b4.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427504648_hu_9e56f9b351022297.png 1024w"
+loading="lazy"
+alt="1742427504648"
+class="gallery-image"
+data-flex-grow="198"
+data-flex-basis="477px"
+>&lt;/p>
+&lt;p>使用New&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427579797.png"
+width="154"
+height="48"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427579797_hu_efc3f9b73c64c0f8.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427579797_hu_dff42e3edd321370.png 1024w"
+loading="lazy"
+alt="1742427579797"
+class="gallery-image"
+data-flex-grow="320"
+data-flex-basis="770px"
+>创建两个分区&lt;/p>
+&lt;p>在第一个分区用&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427613669.png"
+width="156"
+height="52"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427613669_hu_d470420fe0ec63f3.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427613669_hu_513396bdcd05383.png 1024w"
+loading="lazy"
+alt="1742427613669"
+class="gallery-image"
+data-flex-grow="300"
+data-flex-basis="720px"
+>选择EFI system&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427631549.png"
+width="170"
+height="32"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427631549_hu_52aaf782d0eee699.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427631549_hu_5e513eb6ba46069e.png 1024w"
+loading="lazy"
+alt="1742427631549"
+class="gallery-image"
+data-flex-grow="531"
+data-flex-basis="1275px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427645743.png"
+width="1344"
+height="244"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427645743_hu_23629b2f43bb056.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427645743_hu_a04d24e4522b1d27.png 1024w"
+loading="lazy"
+alt="1742427645743"
+class="gallery-image"
+data-flex-grow="550"
+data-flex-basis="1321px"
+>&lt;/p>
+&lt;p>选择&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427663166.png"
+width="140"
+height="40"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427663166_hu_c515cd0563dff6d2.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427663166_hu_ef44ffa64c5f3ff7.png 1024w"
+loading="lazy"
+alt="1742427663166"
+class="gallery-image"
+data-flex-grow="350"
+data-flex-basis="840px"
+>，输入 &lt;code>yes&lt;/code>完成分区&lt;/p>
+&lt;h3 id="安装-1">&lt;a href="#%e5%ae%89%e8%a3%85-1" class="header-anchor">&lt;/a>安装
+&lt;/h3>&lt;p>以此选择第一个分区和第二个分区，每次都选择格式化，第二个格式化为ext4，期间所有提示都选择接受/OK即可&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427692628.png"
+width="1028"
+height="548"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427692628_hu_90fbbd9cd1898aa.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427692628_hu_44dbb3f03659546c.png 1024w"
+loading="lazy"
+alt="1742427692628"
+class="gallery-image"
+data-flex-grow="187"
+data-flex-basis="450px"
+>&lt;/p>
+&lt;p>OTA更新（选No）谁家好人要电脑上装OTA啊（&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427842685.png"
+width="744"
+height="282"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427842685_hu_80423f778bfa23ba.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427842685_hu_a49c5188a2a02e6c.png 1024w"
+loading="lazy"
+alt="1742427842685"
+class="gallery-image"
+data-flex-grow="263"
+data-flex-basis="633px"
+>&lt;/p>
+&lt;p>引导选择rEFInd（我grub2用不了）&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427903079.png"
+width="784"
+height="376"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427903079_hu_5b748e2819aa2881.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427903079_hu_887c5e7c333255b2.png 1024w"
+loading="lazy"
+alt="1742427903079"
+class="gallery-image"
+data-flex-grow="208"
+data-flex-basis="500px"
+>&lt;/p>
+&lt;p>选择重启即可&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427941649.png"
+width="670"
+height="294"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427941649_hu_f22401bb86dc0564.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427941649_hu_47685aa325a3bdb2.png 1024w"
+loading="lazy"
+alt="1742427941649"
+class="gallery-image"
+data-flex-grow="227"
+data-flex-basis="546px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427964694.png"
+width="1560"
+height="960"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427964694_hu_340089e817cd91b7.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742427964694_hu_81aaa0ff2c932587.png 1024w"
+loading="lazy"
+alt="1742427964694"
+class="gallery-image"
+data-flex-grow="162"
+data-flex-basis="390px"
+>&lt;/p>
+&lt;h3 id="可能的问题">&lt;a href="#%e5%8f%af%e8%83%bd%e7%9a%84%e9%97%ae%e9%a2%98" class="header-anchor">&lt;/a>可能的问题
+&lt;/h3>&lt;p>有可能某些地方没设置好导致无法进入引导，可以一直插着ISO，然后在安装界面选择最下面的&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428074771.png"
+width="900"
+height="480"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428074771_hu_847603fddb08f054.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428074771_hu_49a95473a50929e0.png 1024w"
+loading="lazy"
+alt="1742428074771"
+class="gallery-image"
+data-flex-grow="187"
+data-flex-basis="450px"
+>&lt;/p>
+&lt;p>就可以成功进入引导了&lt;/p>
+&lt;h2 id="启动">&lt;a href="#%e5%90%af%e5%8a%a8" class="header-anchor">&lt;/a>启动
+&lt;/h2>&lt;p>成功啦&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428345576.png"
+width="1552"
+height="970"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428345576_hu_b0369b27c8227658.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428345576_hu_e84b08c2f2e8de8e.png 1024w"
+loading="lazy"
+alt="1742428345576"
+class="gallery-image"
+data-flex-grow="160"
+data-flex-basis="384px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428593240.png"
+width="586"
+height="386"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428593240_hu_eca7f4684f0c9a4f.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428593240_hu_16573af21a3b458e.png 1024w"
+loading="lazy"
+alt="1742428593240"
+class="gallery-image"
+data-flex-grow="151"
+data-flex-basis="364px"
+>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428610991.png"
+width="1566"
+height="942"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428610991_hu_9c31c418ec09e808.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428610991_hu_7e110e2d7e69acad.png 1024w"
+loading="lazy"
+alt="1742428610991"
+class="gallery-image"
+data-flex-grow="166"
+data-flex-basis="398px"
+>&lt;/p>
+&lt;p>非常可惜的是KernelSU烂掉了&lt;/p>
+&lt;p>scrcpy，非常流畅&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428878163.png"
+width="2560"
+height="1656"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428878163_hu_edb43fe612cb4e97.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742428878163_hu_69dc6e536dcf8fa0.png 1024w"
+loading="lazy"
+alt="1742428878163"
+class="gallery-image"
+data-flex-grow="154"
+data-flex-basis="371px"
+>&lt;/p>
+&lt;h2 id="修复root">&lt;a href="#%e4%bf%ae%e5%a4%8droot" class="header-anchor">&lt;/a>修复root
+&lt;/h2>&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429421087.png"
+width="1422"
+height="374"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429421087_hu_96d942d92df26eaa.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429421087_hu_f837c53b1e320166.png 1024w"
+loading="lazy"
+alt="1742429421087"
+class="gallery-image"
+data-flex-grow="380"
+data-flex-basis="912px"
+>&lt;/p>
+&lt;h3 id="systembinsu">&lt;a href="#systembinsu" class="header-anchor">&lt;/a>/system/bin/su
+&lt;/h3>&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429690558.png"
+width="602"
+height="106"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429690558_hu_7fcaec0d13f82dda.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429690558_hu_220e38271838babd.png 1024w"
+loading="lazy"
+alt="1742429690558"
+class="gallery-image"
+data-flex-grow="567"
+data-flex-basis="1363px"
+>&lt;/p>
+&lt;p>&lt;strong>It works on my machine ¯\_(ツ)_/¯&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429705647.png"
+width="200"
+height="189"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429705647_hu_2ce15addd7a25965.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429705647_hu_75ecf3daedd58183.png 1024w"
+loading="lazy"
+alt="1742429705647"
+class="gallery-image"
+data-flex-grow="105"
+data-flex-basis="253px"
+>&lt;/p>
+&lt;h3 id="syscall_hardeningoff失败">&lt;a href="#syscall_hardeningoff%e5%a4%b1%e8%b4%a5" class="header-anchor">&lt;/a>syscall_hardening=off(失败)
+&lt;/h3>&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429909039.png"
+width="1446"
+height="576"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429909039_hu_c8d61c5d664c32ff.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742429909039_hu_568055d11ac02a0.png 1024w"
+loading="lazy"
+alt="1742429909039"
+class="gallery-image"
+data-flex-grow="251"
+data-flex-basis="602px"
+>&lt;/p>
+&lt;p>起一个进入 DEBUG live（假设你的ISO还没拔掉）&lt;/p>
+&lt;p>挂载 &lt;code>/dev/sda1&lt;/code>到随便什么地方，找到 &lt;code>android.cfg&lt;/code>&lt;/p>
+&lt;p>BlissOS（最外层）的 &lt;code>options&lt;/code>加 &lt;code>syscall_hardening=off&lt;/code>&lt;/p>
+&lt;p>&lt;img src="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742431802677.png"
+width="1746"
+height="842"
+srcset="/p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742431802677_hu_9cc41cd61f5bd304.png 480w, /p/pve-%E5%AE%89%E8%A3%85-blissos-zenith%E5%AE%89%E5%8D%9313/image/index/1742431802677_hu_c067ca2817e58e5.png 1024w"
+loading="lazy"
+alt="1742431802677"
+class="gallery-image"
+data-flex-grow="207"
+data-flex-basis="497px"
+>&lt;/p>
+&lt;p>还是不行，放弃&lt;/p>
+&lt;h2 id="调整分辨率">&lt;a href="#%e8%b0%83%e6%95%b4%e5%88%86%e8%be%a8%e7%8e%87" class="header-anchor">&lt;/a>调整分辨率
+&lt;/h2>&lt;p>rootshell 执行 &lt;code>/system/bin/wmsize 900x1600&lt;/code> （绝对路径）&lt;/p>
+&lt;p>好啦，刷本吧，哈哈&lt;/p>
+&lt;h2 id="fin">&lt;a href="#fin" class="header-anchor">&lt;/a>fin
+&lt;/h2></description></item></channel></rss>

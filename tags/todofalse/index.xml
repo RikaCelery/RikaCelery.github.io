@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TODOfalse on Celery的菜园子</title><link>/tags/todofalse/</link><description>Recent content in TODOfalse on Celery的菜园子</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 06 Mar 2025 22:17:24 +0800</lastBuildDate><atom:link href="/tags/todofalse/index.xml" rel="self" type="application/rss+xml"/><item><title>一台Nas搭建记录</title><link>/p/%E4%B8%80%E5%8F%B0nas%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</link><pubDate>Thu, 06 Mar 2025 22:17:24 +0800</pubDate><guid>/p/%E4%B8%80%E5%8F%B0nas%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</guid><description>&lt;img src="/p/%E4%B8%80%E5%8F%B0nas%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post 一台Nas搭建记录" />&lt;p>还没到货，到了再编辑&lt;/p>
+&lt;h2 id="物料清单">&lt;a href="#%e7%89%a9%e6%96%99%e6%b8%85%e5%8d%95" class="header-anchor">&lt;/a>物料清单
+&lt;/h2>&lt;p>主要参考了 &lt;a class="link" href="https://wiki.slarker.me/hardware/cpu.html" target="_blank" rel="noopener"
+>一起玩NAS!&lt;/a>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>物料&lt;/th>
+&lt;th>价格&lt;/th>
+&lt;th>渠道&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>金河田N1&lt;/td>
+&lt;td>119&lt;/td>
+&lt;td>淘宝&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>i3-12300T&lt;/td>
+&lt;td>690&lt;/td>
+&lt;td>淘宝&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PRIME H610M-A D4&lt;/td>
+&lt;td>699&lt;/td>
+&lt;td>京东&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>利民 AXP90-X36&lt;/td>
+&lt;td>149&lt;/td>
+&lt;td>京东&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>英睿达32G x2&lt;/td>
+&lt;td>793&lt;/td>
+&lt;td>京东&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>全汉MS450&lt;/td>
+&lt;td>369&lt;/td>
+&lt;td>京东&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>致态TiPlus7100&lt;/td>
+&lt;td>527&lt;/td>
+&lt;td>京东&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>西数矿盘16T WUH721816ALE6L4&lt;/td>
+&lt;td>935&lt;/td>
+&lt;td>淘宝&lt;/td>
+&lt;td>便宜&amp;hellip;..&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>还有不少东西，之后再补&lt;/p>
+&lt;h2 id="系统">&lt;a href="#%e7%b3%bb%e7%bb%9f" class="header-anchor">&lt;/a>系统
+&lt;/h2>&lt;p>PVE All In One&lt;/p>
+&lt;p>&lt;img src="/p/%E4%B8%80%E5%8F%B0nas%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/image/index/1742401675519.png"
+width="3236"
+height="1692"
+srcset="/p/%E4%B8%80%E5%8F%B0nas%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/image/index/1742401675519_hu_bda78a2ba34b8739.png 480w, /p/%E4%B8%80%E5%8F%B0nas%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/image/index/1742401675519_hu_7a9c40ce1831425d.png 1024w"
+loading="lazy"
+alt="1742401675519"
+class="gallery-image"
+data-flex-grow="191"
+data-flex-basis="459px"
+>&lt;/p></description></item></channel></rss>
